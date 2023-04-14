@@ -19,14 +19,19 @@ export default function HeroContents() {
         transform: "translate(-50%,-50%)",
       }}
     >
+      {/* Hero title */}
       <Box>
         <MainTitle title={"FreshMarche"} />
       </Box>
+
+      {/* Hero description */}
       <Box>
         <Typography variant="body1">
           {heroDescription["description"]}
         </Typography>
       </Box>
+
+      {/* Hero action button */}
       <Box>
         <BaseButton onClick={handleClick} text="Explore" />
       </Box>
