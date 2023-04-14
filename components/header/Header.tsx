@@ -39,7 +39,7 @@ export default function Header() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ position: "fixed", top: 0, left: 0 }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
