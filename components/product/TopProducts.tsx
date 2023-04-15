@@ -3,7 +3,8 @@
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import TopProductMenu from "../menu/TopProductMenu";
-import { useState } from "react";
+import ProductCard from "../card/ProductCart";
+import { DUMMY_PRODUCT } from "@/types/product/product";
 
 export default function TopProducts() {
   return (
@@ -21,6 +22,9 @@ export default function TopProducts() {
 
         {/* menubar */}
         <TopProductMenu />
+      </Box>
+      <Box>
+        <ProductCard product={DUMMY_PRODUCT} />
       </Box>
     </Box>
   );

@@ -7,7 +7,7 @@ export default function TopProductMenu() {
     <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
       {topProductsMenu.map((menu) => {
         return (
-          <Typography variant="body1" sx={{ minWidth: 100 }}>
+          <Typography key={menu} variant="body1" sx={{ minWidth: 100 }}>
             {menu}
           </Typography>
         );
