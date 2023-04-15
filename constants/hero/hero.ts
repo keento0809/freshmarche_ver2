@@ -1,8 +1,8 @@
 interface HeroDescription {
-  description: string;
+  readonly description: string;
 }
 
-export const heroDescription: Readonly<HeroDescription> = {
+export const heroDescription: HeroDescription = {
   description:
     "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
 };
