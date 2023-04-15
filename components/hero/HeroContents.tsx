@@ -7,7 +7,7 @@ import BaseButton from "../button/BaseButton";
 export default function HeroContents() {
   // Click event for BaseButton
   const handleClick = () => {
-    console.log(typeof heroDescription.description);
+    console.log(typeof heroDescription);
   };
 
   return (
@@ -26,9 +26,7 @@ export default function HeroContents() {
 
       {/* Hero description */}
       <Box>
-        <Typography variant="body1">
-          {heroDescription["description"]}
-        </Typography>
+        <Typography variant="body1">{heroDescription.description}</Typography>
       </Box>
 
       {/* Hero action button */}
