@@ -1,11 +1,9 @@
-import Hero from "@/components/hero/Hero";
-import TopProducts from "@/components/product/TopProducts";
+import { LandingPage } from "./LandingPage";
 
 export default function Home() {
   return (
     <main>
-      <Hero />
-      <TopProducts />
+      <LandingPage />
     </main>
   );
 }
