@@ -4,7 +4,7 @@ import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import TopProductMenu from "../menu/TopProductMenu";
 import ProductCard from "../card/ProductCart";
-import { DUMMY_PRODUCT } from "@/types/product/product";
+import { DUMMY_PRODUCT } from "@/src/app/types/product/product";
 
 export default function TopProducts() {
   return (
