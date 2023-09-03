@@ -1,6 +1,7 @@
 import { Nav } from "@/src/app/components/nav/Nav";
 import "./globals.css";
 import Footer from "@/src/app/components/footer/Footer";
+import { ReactQueryProvider } from "./providers/ReactQueryProvider";
 
 export const metadata = {
   title: "Freshmarche_ver2",
@@ -16,9 +17,11 @@ export default function RootLayout({
     <html lang="en">
       {/* // suppressHydrationWarning prevents extensions from causing a server/client mismatch */}
       <body suppressHydrationWarning={true}>
-        <Nav />
-        {children}
-        <Footer />
+        <ReactQueryProvider>
+          <Nav />
+          {children}
+          <Footer />
+        </ReactQueryProvider>
       </body>
     </html>
   );

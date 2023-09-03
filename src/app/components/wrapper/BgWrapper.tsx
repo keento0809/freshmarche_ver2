@@ -6,7 +6,11 @@ export const BgWrapper: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   return (
     <Box
-      sx={{ backgroundImage: `url(${ImageUrl.src})`, backgroundSize: "cover" }}
+      sx={{
+        backgroundImage: `url(${ImageUrl.src})`,
+        backgroundSize: "cover",
+        backgroundPosition: "50%",
+      }}
     >
       <Box sx={{ paddingTop: "64px" }}>{children}</Box>
     </Box>
