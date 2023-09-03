@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import ImageUrl from "../../public/images/top-bg-image.jpg";
+import ImageUrl from "@/public/images/top-bg-image.jpg";
 
 type BgWrapperProps = {
   children: React.ReactNode;
