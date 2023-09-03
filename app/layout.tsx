@@ -1,4 +1,6 @@
+import { Nav } from "@/components/nav/Nav";
 import "./globals.css";
+import Footer from "@/components/footer/Footer";
 
 export const metadata = {
   title: "Freshmarche_ver2",
@@ -12,7 +14,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      {/* // suppressHydrationWarning prevents extensions from causing a server/client mismatch */}
+      <body suppressHydrationWarning={true}>
+        <Nav />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
