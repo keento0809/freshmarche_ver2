@@ -1,6 +1,6 @@
-import { Nav } from "@/components/nav/Nav";
+import { Nav } from "@/src/app/components/nav/Nav";
 import "./globals.css";
-import Footer from "@/components/footer/Footer";
+import Footer from "@/src/app/components/footer/Footer";
 
 export const metadata = {
   title: "Freshmarche_ver2",

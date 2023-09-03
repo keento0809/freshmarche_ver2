@@ -6,7 +6,7 @@ import CardActions from "@mui/material/CardActions";
 import BasicRating from "../rating/Rating";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
-import { Product } from "@/types/product/product";
+import { Product } from "@/src/app/types/product/product";
 
 interface Props {
   product: Product;
