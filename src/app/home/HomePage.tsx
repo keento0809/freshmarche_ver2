@@ -1,15 +1,27 @@
 "use client";
 
-import { PageContainer } from "@/src/app/components/container/PageContainer";
 import { BgWrapper } from "@/src/app/components/wrapper/BgWrapper";
-import { ViewHeightWrapper } from "@/src/app/components/wrapper/ViewHeightWrapper";
+import { ViewWrapper } from "@/src/app/components/wrapper/ViewWrapper";
+import MainTitle from "../components/title/MainTitle";
+import { useQueryProducts } from "../hooks/products/useQueryProducts";
+import { ProductList } from "../components/list/ProductList";
 
 export const HomePage = () => {
+  const { data: products, isFetching } = useQueryProducts();
+  if (isFetching)
+    return (
+      <BgWrapper>
+        <ViewWrapper>
+          <div>Loading...</div>
+        </ViewWrapper>
+      </BgWrapper>
+    );
   return (
     <BgWrapper>
-      <ViewHeightWrapper>
-        <PageContainer>HomePage</PageContainer>
-      </ViewHeightWrapper>
+      <ViewWrapper>
+        <MainTitle title={"Products"} />
+        {products && <ProductList products={products} />}
+      </ViewWrapper>
     </BgWrapper>
   );
 };
