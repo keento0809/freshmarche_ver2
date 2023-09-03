@@ -2,14 +2,15 @@
 
 import { PageContainer } from "@/src/app/components/container/PageContainer";
 import { BgWrapper } from "@/src/app/components/wrapper/BgWrapper";
-import { ViewHeightWrapper } from "@/src/app/components/wrapper/ViewHeightWrapper";
+import { ViewWrapper } from "@/src/app/components/wrapper/ViewWrapper";
+import MainTitle from "../components/title/MainTitle";
 
 export const HomePage = () => {
   return (
     <BgWrapper>
-      <ViewHeightWrapper>
-        <PageContainer>HomePage</PageContainer>
-      </ViewHeightWrapper>
+      <ViewWrapper>
+        <MainTitle title={"Products"} />
+      </ViewWrapper>
     </BgWrapper>
   );
 };

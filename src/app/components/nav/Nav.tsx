@@ -178,7 +178,7 @@ export const Nav = () => {
         },
       }}
     >
-      <PageContainer>
+      <Box sx={{ maxWidth: "1280px", margin: "0 auto" }}>
         <AppBar position="static">
           <Toolbar>
             <Typography
@@ -246,7 +246,7 @@ export const Nav = () => {
         </AppBar>
         {renderMobileMenu}
         {renderMenu}
-      </PageContainer>
+      </Box>
     </Box>
   );
 };
