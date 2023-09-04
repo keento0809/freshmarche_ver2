@@ -1,7 +1,7 @@
 "use client";
 
 import Box from "@mui/material/Box";
-import { copyright } from "@/constants/footer/footer";
+import { copyright } from "@/src/app/constants/footer/footer";
 
 export default function Footer() {
   return (
