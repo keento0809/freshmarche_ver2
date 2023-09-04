@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Typography } from "@mui/material";
 import { BgWrapper } from "@/src/app/components/wrapper/BgWrapper";
 import { FlexWrapper } from "@/src/app/components/wrapper/FlexWrapper";
-import { landingPageTexts } from "@/constants/landingPage/landingPage";
+import { landingPageTexts } from "@/src/app/constants/landingPage/landingPage";
 
 const styles = {
   minHeight: "100vh",
