@@ -2,13 +2,14 @@
 
 import { BgWrapper } from "../../../components/wrapper/BgWrapper";
 import { ViewWrapper } from "../../../components/wrapper/ViewWrapper";
-import { useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 
 export const ProductPage = () => {
+  const { id } = useParams();
   return (
     <BgWrapper>
       <ViewWrapper>
-        <div>Product: </div>
+        <div>Product: {id}</div>
       </ViewWrapper>
     </BgWrapper>
   );

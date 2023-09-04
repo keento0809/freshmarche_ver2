@@ -1,19 +1,20 @@
 "use client";
 
-import Button from "@mui/material/Button";
+import { Button } from "@mui/material";
 import Link from "next/link";
+import { ComponentProps } from "react";
 
-type TextButtonProps = {
+type TextButtonProps = ComponentProps<"button"> & {
   linkUrl: string;
   text: string;
 };
 
 export const TextButton = ({ text, linkUrl }: TextButtonProps) => {
   return (
-    <Link href={`/products/2`} style={{ textDecoration: "none" }}>
-      {text}
-    </Link>
-    // <Button>
-    // </Button>
+    <Button>
+      <Link href={linkUrl} style={{ textDecoration: "none" }}>
+        {text}
+      </Link>
+    </Button>
   );
 };
