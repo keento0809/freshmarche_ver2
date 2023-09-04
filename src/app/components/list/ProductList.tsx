@@ -1,12 +1,18 @@
+"use client";
+
 import { Box, Grid } from "@mui/material";
 import { Product } from "../../hooks/products/useQueryProducts";
 import Image from "next/image";
+import { TextButton } from "../button/TextButton";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type ProductListProps = {
   products: Array<Product>;
 };
 
 export const ProductList: React.FC<ProductListProps> = ({ products }) => {
+  const router = useRouter();
   return (
     <Grid
       component="ul"
@@ -16,6 +22,7 @@ export const ProductList: React.FC<ProductListProps> = ({ products }) => {
       sx={{ listStyle: "none", padding: "4rem 1.5rem" }}
     >
       {products?.map((p) => {
+        console.log(p);
         return (
           <Grid component="li" item xs={2} key={p.id}>
             <Box
@@ -30,13 +37,14 @@ export const ProductList: React.FC<ProductListProps> = ({ products }) => {
               }}
             >
               <Image
-                src={p.images[0]}
+                src={p.thumbnail}
                 width={150}
                 height={150}
                 alt="productImage"
               />
               <h4>{p.title}</h4>
-              <p>{p.description}</p>
+              <p>{p.brand}</p>
+              <TextButton text={"Detail"} linkUrl={`/products/${p.id}`} />
             </Box>
           </Grid>
         );
