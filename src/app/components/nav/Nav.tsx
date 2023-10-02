@@ -123,6 +123,7 @@ export const Nav = () => {
       }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
+      sx={{ zIndex: "10" }}
     >
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">

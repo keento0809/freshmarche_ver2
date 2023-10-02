@@ -5,24 +5,22 @@ import { ViewWrapper } from "@/src/app/components/wrapper/ViewWrapper";
 import MainTitle from "../../components/title/MainTitle";
 import { useQueryProducts } from "../../hooks/products/useQueryProducts";
 import { ProductList } from "../../components/list/ProductList";
-import Link from "next/link";
+import { Box } from "@mui/material";
 
 export const HomePage = () => {
   const { data: products, isFetching } = useQueryProducts();
   if (isFetching)
     return (
-      <BgWrapper>
-        <ViewWrapper>
-          <div>Loading...</div>
-        </ViewWrapper>
-      </BgWrapper>
+      <ViewWrapper>
+        <div>Loading...</div>
+      </ViewWrapper>
     );
   return (
-    <BgWrapper>
-      <ViewWrapper>
+    <ViewWrapper>
+      <Box sx={{ position: "fixed", top: "100px", left: 0, right: 0 }}>
         <MainTitle title={"Products"} />
         {products && <ProductList products={products} />}
-      </ViewWrapper>
-    </BgWrapper>
+      </Box>
+    </ViewWrapper>
   );
 };

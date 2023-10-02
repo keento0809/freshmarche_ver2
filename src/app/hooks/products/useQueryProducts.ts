@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
+import { externalUrls } from "../../constants/urls/externalUrls";
 
 export type Product = {
   id: number;
@@ -15,15 +16,24 @@ export type Product = {
   images: Array<string>;
 };
 
+interface ResponseDataObj {
+  limits: number;
+  skip: number;
+  total: number;
+  products: Array<Product>;
+}
+
 export const useQueryProducts = () => {
-  const queryFn = async (): Promise<Product[]> => {
-    const response = await axios.get("https://dummyjson.com/products");
+  const queryFn = async (): Promise<Array<Product>> => {
+    const response: AxiosResponse<ResponseDataObj> = await axios.get(
+      externalUrls.ALL_PRODUCTS
+    );
     return response.data.products;
   };
   return useQuery<Array<Product>, Error>({
     queryKey: ["products"],
     queryFn,
     keepPreviousData: true,
-    cacheTime: 6000,
+    staleTime: 60000,
   });
 };

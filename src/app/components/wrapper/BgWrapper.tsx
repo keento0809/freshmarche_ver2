@@ -1,3 +1,5 @@
+"use client";
+
 import { Box } from "@mui/material";
 import ImageUrl from "@/src/app/public/images/top-bg-image.jpg";
 
@@ -12,7 +14,7 @@ export const BgWrapper: React.FC<{ children: React.ReactNode }> = ({
         backgroundPosition: "50%",
       }}
     >
-      <Box sx={{ paddingTop: "64px" }}>{children}</Box>
+      {children}
     </Box>
   );
 };
