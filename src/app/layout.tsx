@@ -2,6 +2,7 @@ import { Nav } from "@/src/app/components/nav/Nav";
 import "./globals.css";
 import Footer from "@/src/app/components/footer/Footer";
 import { ReactQueryProvider } from "./providers/ReactQueryProvider";
+import { BgWrapper } from "./components/wrapper/BgWrapper";
 
 export const metadata = {
   title: "TechMarche",
@@ -18,9 +19,11 @@ export default function RootLayout({
       {/* // suppressHydrationWarning prevents extensions from causing a server/client mismatch */}
       <body suppressHydrationWarning={true}>
         <ReactQueryProvider>
-          <Nav />
-          {children}
-          <Footer />
+          <BgWrapper>
+            <Nav />
+            {children}
+            <Footer />
+          </BgWrapper>
         </ReactQueryProvider>
       </body>
     </html>

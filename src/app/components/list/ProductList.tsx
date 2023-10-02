@@ -22,7 +22,6 @@ export const ProductList: React.FC<ProductListProps> = ({ products }) => {
       sx={{ listStyle: "none", padding: "4rem 1.5rem" }}
     >
       {products?.map((p) => {
-        console.log(p);
         return (
           <Grid component="li" item xs={2} key={p.id}>
             <Box
