@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { Box, Typography } from "@mui/material";
-import { FlexWrapper } from "@/src/app/components/wrapper/FlexWrapper";
-import { landingPageTexts } from "@/src/app/constants/landingPage/landingPage";
+import { FlexWrapper } from "@/src/components/wrapper/FlexWrapper";
+import { landingPageTexts } from "@/src/constants/landingPage/landingPage";
 
 const styles = {
   minHeight: "100vh",
