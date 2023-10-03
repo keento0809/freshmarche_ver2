@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 
 type FlexWrapperProps = {
   children: React.ReactNode;
-  styles: { [key: string]: string };
+  styles?: { [key: string]: string };
 };
 
 export const FlexWrapper: React.FC<FlexWrapperProps> = ({
