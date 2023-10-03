@@ -4,6 +4,7 @@ import { useQueryProductDetail } from "@/src/hooks/products/useQueryProductDetai
 import { FlexWrapper } from "@/src/components/wrapper/FlexWrapper";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
+import { ActionButton } from "@/src/components/button/ActionButton";
 
 export const ProductPage = ({ id }: { id: string }) => {
   const { data: product, isFetching } = useQueryProductDetail({ id });
@@ -40,6 +41,7 @@ export const ProductPage = ({ id }: { id: string }) => {
         <Typography variant="h5">${product.price}</Typography>
         <Typography variant="body1">{product.description}</Typography>
         <Typography variant="body1">{product.stock} left</Typography>
+        <ActionButton onClick={() => {}} />
       </Box>
     </FlexWrapper>
   );

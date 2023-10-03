@@ -1,11 +1,10 @@
 "use client";
 
 import { Box, Grid } from "@mui/material";
-import { Product } from "../../hooks/products/useQueryProducts";
 import Image from "next/image";
-import { TextButton } from "../button/TextButton";
-import Link from "next/link";
+import { TextLinkButton } from "../button/TextLinkButton";
 import { useRouter } from "next/navigation";
+import type { Product } from "@/src/types/products";
 
 type ProductListProps = {
   products: Array<Product>;
@@ -43,7 +42,7 @@ export const ProductList: React.FC<ProductListProps> = ({ products }) => {
               />
               <h4>{p.title}</h4>
               <p>{p.brand}</p>
-              <TextButton text={"Detail"} linkUrl={`/products/${p.id}`} />
+              <TextLinkButton text={"Detail"} linkUrl={`/products/${p.id}`} />
             </Box>
           </Grid>
         );

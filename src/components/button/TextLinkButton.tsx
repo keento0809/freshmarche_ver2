@@ -9,10 +9,10 @@ type TextButtonProps = ComponentProps<"button"> & {
   text: string;
 };
 
-export const TextButton = ({ text, linkUrl }: TextButtonProps) => {
+export const TextLinkButton = ({ text, linkUrl }: TextButtonProps) => {
   return (
-    <Button>
-      <Link href={linkUrl} style={{ textDecoration: "none" }}>
+    <Button variant="outlined">
+      <Link href={linkUrl} style={{ textDecoration: "none", color: "inherit" }}>
         {text}
       </Link>
     </Button>
