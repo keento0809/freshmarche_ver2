@@ -7,6 +7,7 @@ export default function Footer() {
   return (
     <Box
       component="footer"
+      position="relative"
       sx={{
         padding: "4rem 0",
         fontSize: "12px",

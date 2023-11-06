@@ -6,8 +6,7 @@ import { FlexWrapper } from "@/src/components/wrapper/FlexWrapper";
 import { landingPageTexts } from "@/src/constants/landingPage/landingPage";
 
 const styles = {
-  minHeight: "100vh",
-  minWidth: "100vw",
+  height: "100vh",
   gap: "2.5rem",
 };
 
