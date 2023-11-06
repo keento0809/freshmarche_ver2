@@ -8,7 +8,7 @@ import { ActionButton } from "@/src/components/button/ActionButton";
 
 export const ProductPage = ({ id }: { id: string }) => {
   const { data: product, isFetching } = useQueryProductDetail({ id });
-  console.log("p: ", product);
+
   if (isFetching || product === undefined)
     return <FlexWrapper>Loading...</FlexWrapper>;
   return (

@@ -188,15 +188,7 @@ export const Nav = () => {
             >
               TechMarche
             </Typography>
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ "aria-label": "search" }}
-              />
-            </Search>
+            {/* Add some categories here later */}
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
               <IconButton
@@ -204,7 +196,8 @@ export const Nav = () => {
                 aria-label="show 4 new mails"
                 color="inherit"
               >
-                <Badge badgeContent={4} color="error">
+                {/* Add logic to badgeContent later */}
+                <Badge badgeContent={0} color="error">
                   <ShoppingCartIcon />
                 </Badge>
               </IconButton>
@@ -212,11 +205,7 @@ export const Nav = () => {
                 size="large"
                 aria-label="show 17 new notifications"
                 color="inherit"
-              >
-                <Badge badgeContent={17} color="error">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
+              ></IconButton>
               <IconButton
                 size="large"
                 edge="end"
