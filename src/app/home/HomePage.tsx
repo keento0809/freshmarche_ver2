@@ -4,10 +4,10 @@ import MainTitle from "../../components/title/MainTitle";
 import { useQueryProducts } from "../../hooks/products/useQueryProducts";
 import { ProductList } from "../../components/list/ProductList";
 import { Box } from "@mui/material";
+import { ProductListSkeleton } from "@/src/components/skelton/ProductListSkeleton";
 
 export const HomePage = () => {
   const { data: products, isFetching } = useQueryProducts();
-  if (isFetching) return <div>Loading...</div>;
   return (
     <Box
       sx={{
@@ -18,7 +18,16 @@ export const HomePage = () => {
       }}
     >
       <MainTitle title={"Products"} />
-      {products && <ProductList products={products} />}
+      {isFetching && (
+        <Box
+          display="flex"
+          justifyContent="center"
+          sx={{ mt: 4, width: "100vw" }}
+        >
+          <ProductListSkeleton />
+        </Box>
+      )}
+      {!isFetching && products && <ProductList products={products} />}
     </Box>
   );
 };
