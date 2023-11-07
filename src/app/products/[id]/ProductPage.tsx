@@ -4,14 +4,23 @@ import { useQueryProductDetail } from "@/src/hooks/products/useQueryProductDetai
 import { FlexWrapper } from "@/src/components/wrapper/FlexWrapper";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
 export const ProductPage = ({ id }: { id: string }) => {
-  const { data: product, isFetching } = useQueryProductDetail({ id });
-  console.log("p: ", product);
-  if (isFetching || product === undefined)
-    return <FlexWrapper>Loading...</FlexWrapper>;
+  const { data: product, isLoading, error } = useQueryProductDetail({ id });
+  if (isLoading)
+    return (
+      <FlexWrapper styles={{ position: "relative" }}>Loading...</FlexWrapper>
+    );
+  if (error) notFound();
   return (
-    <FlexWrapper styles={{ flexDirection: "row", alignItems: "flex-start" }}>
+    <FlexWrapper
+      styles={{
+        flexDirection: "row",
+        alignItems: "flex-start",
+        position: "relative",
+      }}
+    >
       <Box flex={2}>
         <Box>
           <Image
