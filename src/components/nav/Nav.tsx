@@ -22,10 +22,12 @@ export const Nav = () => {
     mobileMoreAnchorEl,
     isMenuOpen,
     isMobileMenuOpen,
+    searchParams,
     handleProfileMenuOpen,
     handleMobileMenuClose,
     handleMobileMenuOpen,
     handleMenuClose,
+    handleSearch,
   } = useNav();
 
   const menuId = "primary-search-account-menu";
@@ -136,7 +138,8 @@ export const Nav = () => {
                 <SearchIcon />
               </SearchIconWrapper>
               <StyledInputBase
-                onChange={(e) => console.log(e.target.value)}
+                defaultValue={searchParams.get("query")?.toString()}
+                onChange={(e) => handleSearch(e.target.value)}
                 placeholder="Search…"
                 inputProps={{ "aria-label": "search" }}
               />

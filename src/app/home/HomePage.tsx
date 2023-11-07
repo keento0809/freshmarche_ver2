@@ -1,13 +1,15 @@
 "use client";
 
 import MainTitle from "../../components/title/MainTitle";
-import { useQueryProducts } from "../../hooks/products/useQueryProducts";
+import { useQuerySearchProducts } from "@/src/hooks/products/useQuerySearchProducts";
 import { ProductList } from "../../components/list/ProductList";
 import { Box } from "@mui/material";
 import { ProductListSkeleton } from "@/src/components/skelton/ProductListSkeleton";
 
-export const HomePage = () => {
-  const { data: products, isFetching } = useQueryProducts();
+export const HomePage = ({ query }: { query: string }) => {
+  const { data: products, isFetching } = useQuerySearchProducts({
+    query,
+  });
   return (
     <Box
       sx={{
