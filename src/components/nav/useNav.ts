@@ -32,7 +32,7 @@ export const useNav = () => {
   };
 
   const handleSearch = useDebouncedCallback((term: string) => {
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams.toString());
 
     if (term) {
       params.set("query", term);
