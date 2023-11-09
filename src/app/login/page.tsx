@@ -1,3 +1,5 @@
+import { LoginPage } from "./LoginPage";
+
 export default function Page() {
-  return <div>Page</div>;
+  return <LoginPage />;
 }
