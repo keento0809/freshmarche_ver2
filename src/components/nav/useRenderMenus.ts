@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
+import { useSession, signOut } from "next-auth/react";
 
-export const useNav = () => {
+export const useRenderMenus = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     useState<null | HTMLElement>(null);
@@ -10,6 +11,8 @@ export const useNav = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
+
+  const { data: session } = useSession();
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -54,5 +57,7 @@ export const useNav = () => {
     handleMobileMenuOpen,
     handleMenuClose,
     handleSearch,
+    session,
+    signOut,
   };
 };
