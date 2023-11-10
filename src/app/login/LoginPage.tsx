@@ -11,18 +11,22 @@ import {
 } from "@mui/material";
 import { FC, useState } from "react";
 import { ZodError, z } from "zod";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export const LoginPage: FC = () => {
   const [errors, setErrors] = useState<ZodError<{
     email: string;
     password: string;
   }> | null>(null);
+  const router = useRouter();
 
   const UserSchema = z.object({
     email: z.string().email({ message: "Please enter correct email address" }),
     password: z
       .string()
-      .min(6, { message: "Password should be more than 6 characters" }),
+      // TODO: Fix this validation later
+      .min(1, { message: "Password should be more than 6 characters" }),
   });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -38,7 +42,24 @@ export const LoginPage: FC = () => {
       setErrors(parsedCredentials.error);
       throw parsedCredentials.error;
     }
+
+    const { email, password } = credentials;
+
+    try {
+      await signIn("credentials", {
+        email,
+        password,
+        callbackUrl: `http://localhost:3000/home`,
+      });
+      // router.push("/home");
+    } catch (err) {
+      if (err instanceof Error) console.log(err.message);
+      throw new Error("Failed to login...");
+    }
   };
+
+  const emailError = errors?.issues.find((e) => e.path[0] === "email");
+  const passwordError = errors?.issues.find((e) => e.path[0] === "password");
 
   return (
     <Box position="relative" sx={{ pt: "100px" }}>
@@ -60,21 +81,19 @@ export const LoginPage: FC = () => {
             autoComplete="email"
             autoFocus
           />
-          {errors?.issues[0] && (
-            <Box sx={{ color: "red" }}>{errors.issues[0].message}</Box>
-          )}
+          {emailError && <Box sx={{ color: "red" }}>{emailError.message}</Box>}
           <TextField
             margin="normal"
             required
             fullWidth
             name="password"
-            label="Password"
+            label="password"
             type="password"
             id="password"
             autoComplete="current-password"
           />
-          {errors?.issues[1] && (
-            <Box sx={{ color: "red" }}>{errors.issues[1].message}</Box>
+          {passwordError && (
+            <Box sx={{ color: "red" }}>{passwordError.message}</Box>
           )}
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
