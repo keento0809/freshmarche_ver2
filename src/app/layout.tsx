@@ -4,7 +4,7 @@ import Footer from "@/src/components/footer/Footer";
 import { ReactQueryProvider } from "../providers/ReactQueryProvider";
 import { BgWrapper } from "../components/wrapper/BgWrapper";
 import SessionProvider from "../providers/SessionProvider";
-import { getServerAuthSession } from "./api/auth/[...nextauth]/route";
+import { getServerAuthSession } from "./api/auth/[...nextauth]";
 
 export const metadata = {
   title: "TechMarche",
