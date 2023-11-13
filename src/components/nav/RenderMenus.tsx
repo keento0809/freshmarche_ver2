@@ -16,12 +16,16 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useRenderMenus } from "./useRenderMenus";
 import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
 import { FC } from "react";
+import { useRouter } from "next/navigation";
+import { Button } from "@mui/material";
+import { signOut } from "next-auth/react";
 
 const menuId = "primary-search-account-menu";
 const mobileMenuId = "primary-search-account-menu-mobile";
 
 // Render Menu for both mobile and desktop
 const RenderCommonMenu: FC = () => {
+  const router = useRouter();
   const {
     searchParams,
     handleProfileMenuOpen,
@@ -41,10 +45,23 @@ const RenderCommonMenu: FC = () => {
         >
           TechMarche
         </Typography>
-        {session && (
-          <Typography variant="h6" component="div">
-            Logged in!
-          </Typography>
+        {session ? (
+          <>
+            <Typography
+              variant="body1"
+              component="div"
+              sx={{ color: "orange" }}
+            >
+              Logged in!
+            </Typography>
+            <Button variant="outlined" onClick={() => signOut()}>
+              Logout
+            </Button>
+          </>
+        ) : (
+          <Button variant="outlined" onClick={() => router.push("/login")}>
+            Login
+          </Button>
         )}
         <Search>
           <SearchIconWrapper>

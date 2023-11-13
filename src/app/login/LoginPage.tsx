@@ -12,20 +12,18 @@ import {
 import { FC, useState } from "react";
 import { ZodError, z } from "zod";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 
 export const LoginPage: FC = () => {
   const [errors, setErrors] = useState<ZodError<{
     email: string;
     password: string;
   }> | null>(null);
-  const router = useRouter();
 
   const UserSchema = z.object({
     email: z.string().email({ message: "Please enter correct email address" }),
     password: z
       .string()
-      // TODO: Fix this validation later
+      // TODO: Fix this validation (1) later
       .min(1, { message: "Password should be more than 6 characters" }),
   });
 
@@ -51,7 +49,6 @@ export const LoginPage: FC = () => {
         password,
         callbackUrl: `http://localhost:3000/home`,
       });
-      // router.push("/home");
     } catch (err) {
       if (err instanceof Error) console.log(err.message);
       throw new Error("Failed to login...");
