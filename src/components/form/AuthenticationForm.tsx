@@ -1,6 +1,6 @@
 "use client";
 
-import MainTitle from "@/src/components/title/MainTitle";
+import { FC } from "react";
 import { FlexWrapper } from "@/src/components/wrapper/FlexWrapper";
 import {
   Box,
@@ -9,25 +9,55 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@mui/material";
-import { FC } from "react";
-import { useLoginPage } from "./useLoginPage";
+import MainTitle from "@/src/components/title/MainTitle";
+import { ZodError } from "zod";
 
-export const LoginPage: FC = () => {
-  const { errors, handleSubmit } = useLoginPage();
+type SignupErrors = ZodError<{
+  username: string;
+  email: string;
+  password: string;
+}> | null;
 
-  const emailError = errors?.issues.find((e) => e.path[0] === "email");
-  const passwordError = errors?.issues.find((e) => e.path[0] === "password");
+// type LoginErrors = Omit<SignupErrors, ZodError<> | null;
 
+type AuthenticationFormProps = {
+  title: string;
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  errors: ZodError<{
+    email: string;
+    password: string;
+  }> | null;
+  formType: "LOGIN" | "SIGN_UP";
+};
+
+export const AuthenticationForm: FC<AuthenticationFormProps> = ({
+  title,
+  // TODO: fix it later
+  handleSubmit,
+  formType,
+}) => {
   return (
-    <Box position="relative" sx={{ pt: "100px" }}>
+    <Box>
       <FlexWrapper>
-        <MainTitle title={"Login"} />
+        <MainTitle title={title} />
         <Box
           component="form"
           onSubmit={handleSubmit}
           noValidate
           sx={{ mt: 4, mx: "auto", maxWidth: "400px" }}
         >
+          {formType === "SIGN_UP" && (
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
+              autoFocus
+            />
+          )}
           <TextField
             margin="normal"
             required
@@ -38,7 +68,7 @@ export const LoginPage: FC = () => {
             autoComplete="email"
             autoFocus
           />
-          {emailError && <Box sx={{ color: "red" }}>{emailError.message}</Box>}
+          {/* {emailError && <Box sx={{ color: "red" }}>{emailError.message}</Box>} */}
           <TextField
             margin="normal"
             required
@@ -49,9 +79,9 @@ export const LoginPage: FC = () => {
             id="password"
             autoComplete="current-password"
           />
-          {passwordError && (
+          {/* {passwordError && (
             <Box sx={{ color: "red" }}>{passwordError.message}</Box>
-          )}
+          )} */}
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
@@ -62,7 +92,7 @@ export const LoginPage: FC = () => {
             variant="outlined"
             sx={{ mt: 3, mb: 2 }}
           >
-            Sign In
+            Sign up
           </Button>
         </Box>
       </FlexWrapper>
