@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { useState } from "react";
 import { type ZodError, z } from "zod";
 
@@ -17,6 +18,7 @@ export const useSignupPage = () => {
     email: string;
     password: string;
   }> | null>(null);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const usernameError = errors?.issues.find((e) => e.path[0] === "name");
   const emailError = errors?.issues.find((e) => e.path[0] === "email");
@@ -47,11 +49,9 @@ export const useSignupPage = () => {
           "Content-Type": "application/json",
         },
       });
-      if (newUser) console.log("Successs!!!");
-
-      signupUserData.set("name", "");
-      signupUserData.set("email", "");
-      signupUserData.set("password", "");
+      if (newUser) {
+        setIsSuccess(true);
+      }
     } catch (err) {
       if (err instanceof Error) console.log(err.message);
       throw new Error("Failed to signup...");
@@ -62,6 +62,7 @@ export const useSignupPage = () => {
     usernameError,
     emailError,
     passwordError,
+    isSuccess,
     handleSubmit,
   };
 };
