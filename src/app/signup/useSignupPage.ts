@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { type ZodError, z } from "zod";
-import { redirect } from "next/navigation";
 
 const UserSchema = z.object({
-  username: z
+  name: z
     .string()
     .min(3, { message: "Password should be more than 3 characters" }),
   email: z.string().email({ message: "Please enter correct email address" }),
@@ -14,16 +13,20 @@ const UserSchema = z.object({
 
 export const useSignupPage = () => {
   const [errors, setErrors] = useState<ZodError<{
-    username: string;
+    name: string;
     email: string;
     password: string;
   }> | null>(null);
+
+  const usernameError = errors?.issues.find((e) => e.path[0] === "name");
+  const emailError = errors?.issues.find((e) => e.path[0] === "email");
+  const passwordError = errors?.issues.find((e) => e.path[0] === "password");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const signupUserData = new FormData(event.currentTarget);
     const credentials = {
-      usename: signupUserData.get("username"),
+      name: signupUserData.get("name"),
       email: signupUserData.get("email"),
       password: signupUserData.get("password"),
     };
@@ -31,7 +34,7 @@ export const useSignupPage = () => {
 
     if (!parsedCredentials.success) {
       setErrors(parsedCredentials.error);
-      throw parsedCredentials.error;
+      return;
     }
 
     const newUserData = { ...parsedCredentials.data, image_url: "" };
@@ -44,7 +47,11 @@ export const useSignupPage = () => {
           "Content-Type": "application/json",
         },
       });
-      if (newUser) redirect("/login");
+      if (newUser) console.log("Successs!!!");
+
+      signupUserData.set("name", "");
+      signupUserData.set("email", "");
+      signupUserData.set("password", "");
     } catch (err) {
       if (err instanceof Error) console.log(err.message);
       throw new Error("Failed to signup...");
@@ -52,7 +59,9 @@ export const useSignupPage = () => {
   };
 
   return {
-    errors,
+    usernameError,
+    emailError,
+    passwordError,
     handleSubmit,
   };
 };

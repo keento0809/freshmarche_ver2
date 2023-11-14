@@ -13,10 +13,7 @@ import { FC } from "react";
 import { useLoginPage } from "./useLoginPage";
 
 export const LoginPage: FC = () => {
-  const { errors, handleSubmit } = useLoginPage();
-
-  const emailError = errors?.issues.find((e) => e.path[0] === "email");
-  const passwordError = errors?.issues.find((e) => e.path[0] === "password");
+  const { emailError, passwordError, handleSubmit } = useLoginPage();
 
   return (
     <Box position="relative" sx={{ pt: "100px" }}>

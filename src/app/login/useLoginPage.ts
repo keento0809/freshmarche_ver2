@@ -16,6 +16,9 @@ export const useLoginPage = () => {
     password: string;
   }> | null>(null);
 
+  const emailError = errors?.issues.find((e) => e.path[0] === "email");
+  const passwordError = errors?.issues.find((e) => e.path[0] === "password");
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const loginUserData = new FormData(event.currentTarget);
@@ -27,7 +30,7 @@ export const useLoginPage = () => {
 
     if (!parsedCredentials.success) {
       setErrors(parsedCredentials.error);
-      throw parsedCredentials.error;
+      return;
     }
 
     const { email, password } = credentials;
@@ -36,6 +39,7 @@ export const useLoginPage = () => {
       await signIn("credentials", {
         email,
         password,
+        // TODO: fix this url for production
         callbackUrl: `http://localhost:3000/home`,
       });
     } catch (err) {
@@ -45,7 +49,8 @@ export const useLoginPage = () => {
   };
 
   return {
-    errors,
+    emailError,
+    passwordError,
     handleSubmit,
   };
 };

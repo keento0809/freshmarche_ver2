@@ -10,15 +10,19 @@ import {
   Checkbox,
 } from "@mui/material";
 import MainTitle from "@/src/components/title/MainTitle";
+import { useSignupPage } from "./useSignupPage";
 
 export const SignupPage: FC = () => {
+  const { usernameError, emailError, passwordError, handleSubmit } =
+    useSignupPage();
+
   return (
     <Box position="relative" sx={{ pt: "100px" }}>
       <FlexWrapper>
         <MainTitle title={"Sign up"} />
         <Box
           component="form"
-          //   onSubmit={handleSubmit}
+          onSubmit={handleSubmit}
           noValidate
           sx={{ mt: 4, mx: "auto", maxWidth: "400px" }}
         >
@@ -26,12 +30,15 @@ export const SignupPage: FC = () => {
             margin="normal"
             required
             fullWidth
-            id="username"
+            id="name"
             label="Username"
-            name="username"
-            autoComplete="username"
+            name="name"
+            autoComplete="name"
             autoFocus
           />
+          {usernameError && (
+            <Box sx={{ color: "red" }}>{usernameError.message}</Box>
+          )}
           <TextField
             margin="normal"
             required
@@ -42,7 +49,7 @@ export const SignupPage: FC = () => {
             autoComplete="email"
             autoFocus
           />
-          {/* {emailError && <Box sx={{ color: "red" }}>{emailError.message}</Box>} */}
+          {emailError && <Box sx={{ color: "red" }}>{emailError.message}</Box>}
           <TextField
             margin="normal"
             required
@@ -53,9 +60,9 @@ export const SignupPage: FC = () => {
             id="password"
             autoComplete="current-password"
           />
-          {/* {passwordError && (
+          {passwordError && (
             <Box sx={{ color: "red" }}>{passwordError.message}</Box>
-          )} */}
+          )}
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
