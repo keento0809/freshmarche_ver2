@@ -1,3 +1,4 @@
+import { EMAIL_PATTERN } from "@/src/constants/regex/regex";
 import { redirect } from "next/navigation";
 import { useState } from "react";
 import { type ZodError, z } from "zod";
@@ -6,7 +7,10 @@ const UserSchema = z.object({
   name: z
     .string()
     .min(3, { message: "Password should be more than 3 characters" }),
-  email: z.string().email({ message: "Please enter correct email address" }),
+  email: z
+    .string()
+    .email({ message: "Please enter correct email address" })
+    .regex(EMAIL_PATTERN, { message: "Please enter correct pattern" }),
   password: z
     .string()
     .min(6, { message: "Password should be more than 6 characters" }),

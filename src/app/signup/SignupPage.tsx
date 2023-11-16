@@ -12,6 +12,7 @@ import {
 import MainTitle from "@/src/components/title/MainTitle";
 import { useSignupPage } from "./useSignupPage";
 import { redirect } from "next/navigation";
+import { ErrorMessage } from "@/src/components/message/ErrorMessage";
 
 export const SignupPage: FC = () => {
   const { usernameError, emailError, passwordError, isSuccess, handleSubmit } =
@@ -40,9 +41,7 @@ export const SignupPage: FC = () => {
             autoComplete="name"
             autoFocus
           />
-          {usernameError && (
-            <Box sx={{ color: "red" }}>{usernameError.message}</Box>
-          )}
+          {usernameError && <ErrorMessage error={usernameError} />}
           <TextField
             margin="normal"
             required
@@ -53,7 +52,7 @@ export const SignupPage: FC = () => {
             autoComplete="email"
             autoFocus
           />
-          {emailError && <Box sx={{ color: "red" }}>{emailError.message}</Box>}
+          {emailError && <ErrorMessage error={emailError} />}
           <TextField
             margin="normal"
             required
@@ -64,9 +63,7 @@ export const SignupPage: FC = () => {
             id="password"
             autoComplete="current-password"
           />
-          {passwordError && (
-            <Box sx={{ color: "red" }}>{passwordError.message}</Box>
-          )}
+          {passwordError && <ErrorMessage error={passwordError} />}
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"

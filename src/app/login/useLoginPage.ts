@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { type ZodError, z } from "zod";
 import { signIn } from "next-auth/react";
+import { EMAIL_PATTERN } from "@/src/constants/regex/regex";
 
 const UserSchema = z.object({
-  email: z.string().email({ message: "Please enter correct email address" }),
+  email: z
+    .string()
+    .email({ message: "Please enter correct email address" })
+    .regex(EMAIL_PATTERN, { message: "Please enter correct pattern" }),
   password: z
     .string()
     // TODO: Fix this validation (1) later

@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { FC } from "react";
 import { useLoginPage } from "./useLoginPage";
+import { ErrorMessage } from "@/src/components/message/ErrorMessage";
 
 export const LoginPage: FC = () => {
   const { emailError, passwordError, handleSubmit } = useLoginPage();
@@ -35,7 +36,7 @@ export const LoginPage: FC = () => {
             autoComplete="email"
             autoFocus
           />
-          {emailError && <Box sx={{ color: "red" }}>{emailError.message}</Box>}
+          {emailError && <ErrorMessage error={emailError} />}
           <TextField
             margin="normal"
             required
@@ -46,9 +47,7 @@ export const LoginPage: FC = () => {
             id="password"
             autoComplete="current-password"
           />
-          {passwordError && (
-            <Box sx={{ color: "red" }}>{passwordError.message}</Box>
-          )}
+          {passwordError && <ErrorMessage error={passwordError} />}
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
