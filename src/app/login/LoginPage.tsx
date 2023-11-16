@@ -8,10 +8,12 @@ import {
   Button,
   FormControlLabel,
   Checkbox,
+  Typography,
 } from "@mui/material";
 import { FC } from "react";
 import { useLoginPage } from "./useLoginPage";
 import { ErrorMessage } from "@/src/components/message/ErrorMessage";
+import Link from "next/link";
 
 export const LoginPage: FC = () => {
   const { emailError, passwordError, handleSubmit } = useLoginPage();
@@ -60,6 +62,11 @@ export const LoginPage: FC = () => {
           >
             Sign In
           </Button>
+          <Box mt={6} textAlign="center">
+            <Typography>
+              New to TechMarche? <Link href={"/signup"}>Signup</Link> here!
+            </Typography>
+          </Box>
         </Box>
       </FlexWrapper>
     </Box>

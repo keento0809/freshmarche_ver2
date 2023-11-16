@@ -8,11 +8,13 @@ import {
   Button,
   FormControlLabel,
   Checkbox,
+  Typography,
 } from "@mui/material";
 import MainTitle from "@/src/components/title/MainTitle";
 import { useSignupPage } from "./useSignupPage";
 import { redirect } from "next/navigation";
 import { ErrorMessage } from "@/src/components/message/ErrorMessage";
+import Link from "next/link";
 
 export const SignupPage: FC = () => {
   const { usernameError, emailError, passwordError, isSuccess, handleSubmit } =
@@ -76,6 +78,11 @@ export const SignupPage: FC = () => {
           >
             Sign up
           </Button>
+          <Box mt={6} textAlign="center">
+            <Typography>
+              Already TechMarche user? <Link href={"/login"}>Login</Link> here!
+            </Typography>
+          </Box>
         </Box>
       </FlexWrapper>
     </Box>
