@@ -1,6 +1,6 @@
 "use client";
 
-import MainTitle from "@/src/components/title/MainTitle";
+import { FC } from "react";
 import { FlexWrapper } from "@/src/components/wrapper/FlexWrapper";
 import {
   Box,
@@ -9,23 +9,39 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@mui/material";
-import { FC } from "react";
-import { useLoginPage } from "./useLoginPage";
+import MainTitle from "@/src/components/title/MainTitle";
+import { useSignupPage } from "./useSignupPage";
+import { redirect } from "next/navigation";
 import { ErrorMessage } from "@/src/components/message/ErrorMessage";
 
-export const LoginPage: FC = () => {
-  const { emailError, passwordError, handleSubmit } = useLoginPage();
+export const SignupPage: FC = () => {
+  const { usernameError, emailError, passwordError, isSuccess, handleSubmit } =
+    useSignupPage();
+
+  if (isSuccess) redirect("/login");
 
   return (
     <Box position="relative" sx={{ pt: "100px" }}>
       <FlexWrapper>
-        <MainTitle title={"Login"} />
+        <MainTitle title={"Sign up"} />
         <Box
+          id="signupForm"
           component="form"
           onSubmit={handleSubmit}
           noValidate
           sx={{ mt: 4, mx: "auto", maxWidth: "400px" }}
         >
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="name"
+            label="Username"
+            name="name"
+            autoComplete="name"
+            autoFocus
+          />
+          {usernameError && <ErrorMessage error={usernameError} />}
           <TextField
             margin="normal"
             required
@@ -58,7 +74,7 @@ export const LoginPage: FC = () => {
             variant="outlined"
             sx={{ mt: 3, mb: 2 }}
           >
-            Sign In
+            Sign up
           </Button>
         </Box>
       </FlexWrapper>
