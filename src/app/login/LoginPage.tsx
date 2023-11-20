@@ -64,7 +64,11 @@ export const LoginPage: FC = () => {
           </Button>
           <Box mt={6} textAlign="center">
             <Typography>
-              New to TechMarche? <Link href={"/signup"}>Signup</Link> here!
+              New to TechMarche?{" "}
+              <Link href={"/signup"} style={{ textDecoration: "none" }}>
+                Signup
+              </Link>{" "}
+              here!
             </Typography>
           </Box>
         </Box>
