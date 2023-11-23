@@ -19,6 +19,7 @@ import { FC } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@mui/material";
 import { signOut } from "next-auth/react";
+import Link from "next/link";
 
 const menuId = "primary-search-account-menu";
 const mobileMenuId = "primary-search-account-menu-mobile";
@@ -41,10 +42,18 @@ const RenderCommonMenu: FC = () => {
           variant="h6"
           noWrap
           component="div"
-          sx={{ display: { xs: "none", sm: "block" } }}
+          sx={{
+            display: { xs: "none", sm: "block", cursor: "pointer" },
+          }}
         >
-          TechMarche
+          <Link
+            href={"/home"}
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            TechMarche
+          </Link>
         </Typography>
+        {/* TODO: Delete this later */}
         {session ? (
           <>
             <Typography
@@ -207,7 +216,7 @@ const RenderMobileMenu: FC = () => {
         >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
+        {/* <p>Profile</p> */}
       </MenuItem>
     </Menu>
   );
