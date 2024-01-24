@@ -1,7 +1,8 @@
 import { Box, Grid } from "@mui/material";
 import Image from "next/image";
-import { TextButton } from "../button/TextButton";
 import { Product } from "@/src/types/products";
+import { Button } from "../ui/button";
+import Link from "next/link";
 
 type ProductCardProps = {
   product: Product;
@@ -31,7 +32,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         />
         <h4>{product.title}</h4>
         <p>{product.brand}</p>
-        <TextButton text={"Detail"} linkUrl={`/products/${product.id}`} />
+        <Button asChild className="border border-red-400">
+          <Link href={`/products/${product.id}`}>Detail</Link>
+        </Button>
       </Box>
     </Grid>
   );

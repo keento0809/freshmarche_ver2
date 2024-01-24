@@ -17,9 +17,9 @@ import { useRenderMenus } from "./useRenderMenus";
 import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
 import { FC } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@mui/material";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
+import { Button } from "../ui/button";
 
 const menuId = "primary-search-account-menu";
 const mobileMenuId = "primary-search-account-menu-mobile";
@@ -63,12 +63,12 @@ const RenderCommonMenu: FC = () => {
             >
               Logged in!
             </Typography>
-            <Button variant="outlined" onClick={() => signOut()}>
+            <Button variant={"outline"} size={"sm"} onClick={() => signOut()}>
               Logout
             </Button>
           </>
         ) : (
-          <Button variant="outlined" onClick={() => router.push("/login")}>
+          <Button variant={"outline"} size={"sm"}>
             Login
           </Button>
         )}

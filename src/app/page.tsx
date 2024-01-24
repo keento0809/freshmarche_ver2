@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Box, Typography } from "@mui/material";
 import { FlexWrapper } from "@/src/components/wrapper/FlexWrapper";
 import { landingPageTexts } from "@/src/constants/landingPage/landingPage";
+import { Button } from "../components/ui/button";
 
 const styles = {
   height: "100vh",
@@ -22,7 +23,14 @@ export default function Home() {
           >
             {landingPageTexts.title}
           </Typography>
-          <Link href={"/home"}>Get started</Link>
+          <Button
+            asChild
+            variant={"outline"}
+            size={"sm"}
+            className="border border-red-400"
+          >
+            <Link href={"/home"}>Get started</Link>
+          </Button>
         </Box>
       </FlexWrapper>
     </main>
