@@ -19,7 +19,7 @@ import { FC } from "react";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
-import { Button } from "../ui/button";
+import { Button } from "../ui/button/button";
 
 const menuId = "primary-search-account-menu";
 const mobileMenuId = "primary-search-account-menu-mobile";

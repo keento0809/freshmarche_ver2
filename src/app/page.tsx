@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Box, Typography } from "@mui/material";
 import { FlexWrapper } from "@/src/components/wrapper/FlexWrapper";
 import { landingPageTexts } from "@/src/constants/landingPage/landingPage";
-import { Button } from "../components/ui/button";
+import { Button } from "../components/ui/button/button";
 
 const styles = {
   height: "100vh",
