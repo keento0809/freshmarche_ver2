@@ -34,7 +34,6 @@ export default async function RootLayout({
             <BgWrapper>
               <Nav />
               {children}
-              <Footer />
             </BgWrapper>
           </ReactQueryProvider>
         </SessionProvider>
