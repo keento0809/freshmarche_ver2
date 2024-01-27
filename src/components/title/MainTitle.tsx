@@ -1,20 +1,20 @@
+import { cn } from "@/src/lib/utils";
 import Typography from "@mui/material/Typography";
 
 interface Props {
   title: string;
-  styles?: Array<string>;
+  className?: string;
 }
 
-export default function MainTitle({ title, styles }: Props) {
+export default function MainTitle({ title, className }: Props) {
   return (
-    <Typography
-      variant="h2"
-      fontSize="32px"
-      letterSpacing="-1px"
-      textAlign="center"
-      {...styles}
+    <h2
+      className={cn(
+        "text-2xl tracking-tight font-semibold text-center",
+        className
+      )}
     >
       {title}
-    </Typography>
+    </h2>
   );
 }
