@@ -17,7 +17,7 @@ export const HomePage = ({ query }: { query: string }) => {
         top: "100px",
         left: 0,
         right: 0,
-        maxHeight: "calc(100vh - 50px)",
+        maxHeight: "calc(100vh - 120px)",
         overflow: "scroll",
         zIndex: 20,
       }}
