@@ -48,7 +48,6 @@ export function QuantitySelectForm({ product }: { product: Product }) {
         </pre>
       ),
     });
-    console.log("data: ", data);
   }
 
   return (
