@@ -12,12 +12,14 @@ export const HomePage = ({ query }: { query: string }) => {
   });
   return (
     <Box
+      mx={"auto"}
       sx={{
         position: "fixed",
         top: "100px",
         left: 0,
         right: 0,
         maxHeight: "calc(100vh - 120px)",
+        maxWidth: "1280px",
         overflow: "scroll",
         zIndex: 20,
       }}
