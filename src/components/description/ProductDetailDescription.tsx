@@ -35,7 +35,7 @@ export const ProductDetailDescription = ({
       <CardContent className="p-0">{product.description}</CardContent>
       <CardContent className="p-0 font-semibold">${product.price}</CardContent>
       <CardFooter className="p-0 flex gap-2 items-center">
-        <QuantitySelectForm />
+        <QuantitySelectForm product={product} />
       </CardFooter>
     </Card>
   );
