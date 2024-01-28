@@ -8,10 +8,8 @@ import { Button } from "@/src/components/common/button/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/src/components/common/form/form";
 import {
@@ -23,23 +21,27 @@ import {
 } from "@/src/components/common/select/select";
 import { toast } from "@/src/components/common/toast/use-toast";
 import { productQuantityArray } from "@/src/constants/product/productQuantity";
+import { Product } from "@/src/types/products";
 
 const FormSchema = z.object({
-  email: z
-    .string({
-      required_error: "Please select an email to display.",
-    })
-    .email(),
+  quantity: z.string({
+    required_error: "Please select a quantity.",
+  }),
+  title: z.string({ required_error: "Product title is empty." }),
 });
 
-export function QuantitySelectForm() {
+export function QuantitySelectForm({ product }: { product: Product }) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
+    defaultValues: {
+      title: product.title,
+      quantity: "1",
+    },
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     toast({
-      title: "You submitted the following values:",
+      title: "Item successfully added to your cart!",
       description: (
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
           <code className="text-white">{JSON.stringify(data, null, 2)}</code>
@@ -53,7 +55,7 @@ export function QuantitySelectForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
         <FormField
           control={form.control}
-          name="email"
+          name="quantity"
           render={({ field }) => (
             <FormItem>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
@@ -70,7 +72,6 @@ export function QuantitySelectForm() {
                   ))}
                 </SelectContent>
               </Select>
-              <FormDescription>Please select quantity above.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
