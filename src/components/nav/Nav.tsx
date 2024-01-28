@@ -6,7 +6,7 @@ import { RenderCommonMenu, RenderMenu, RenderMobileMenu } from "./RenderMenus";
 export const Nav = () => {
   return (
     <Box
-      zIndex={10}
+      zIndex={30}
       sx={{
         flexGrow: 1,
         position: "fixed",
