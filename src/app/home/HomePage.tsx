@@ -7,7 +7,11 @@ import { Box } from "@mui/material";
 import { ProductListSkeleton } from "@/src/components/skelton/ProductListSkeleton";
 
 export const HomePage = ({ query }: { query: string }) => {
-  const { data: products, isFetching } = useQuerySearchProducts({
+  const {
+    data: products,
+    isFetching,
+    isLoading,
+  } = useQuerySearchProducts({
     query,
   });
   return (
@@ -34,7 +38,9 @@ export const HomePage = ({ query }: { query: string }) => {
           <ProductListSkeleton />
         </Box>
       )}
-      {!isFetching && products && <ProductList products={products} />}
+      {!isFetching && !isLoading && products && (
+        <ProductList products={products} />
+      )}
     </Box>
   );
 };

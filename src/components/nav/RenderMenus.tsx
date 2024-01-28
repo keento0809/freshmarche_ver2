@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { Button } from "../common/button/button";
+import { Input } from "../common/input/input";
 
 const menuId = "primary-search-account-menu";
 const mobileMenuId = "primary-search-account-menu-mobile";
@@ -73,14 +74,16 @@ const RenderCommonMenu: FC = () => {
           </Button>
         )}
         <Search>
-          <SearchIconWrapper>
+          <SearchIconWrapper sx={{ pl: "0.75rem" }}>
             <SearchIcon />
           </SearchIconWrapper>
-          <StyledInputBase
+          <Input
+            type="text"
             defaultValue={searchParams.get("query")?.toString()}
             onChange={(e) => handleSearch(e.target.value)}
-            placeholder="Search…"
-            inputProps={{ "aria-label": "search" }}
+            placeholder="Search"
+            aria-label={"search"}
+            className="pl-10 focus-visible:border-none"
           />
         </Search>
         <Box sx={{ flexGrow: 1 }} />

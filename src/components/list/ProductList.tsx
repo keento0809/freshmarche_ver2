@@ -7,6 +7,8 @@ type ProductListProps = {
 };
 
 export const ProductList: React.FC<ProductListProps> = ({ products }) => {
+  if (products.length === 0)
+    return <div className="text-xl text-center pt-8">No products found</div>;
   return (
     <Grid
       component="ul"
