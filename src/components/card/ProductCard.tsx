@@ -19,19 +19,24 @@ type ProductCardProps = {
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <Grid component={"li"} item xs={2}>
-      <Card className="max-h-[430px]">
-        <CardHeader>
+      <Card className="max-h-[450px]">
+        <CardHeader className="min-h-[134px]">
           <CardTitle>{product.title}</CardTitle>
           <CardDescription>{product.brand}</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="h-[250px]">
           <Image
             src={product.thumbnail}
             sizes="100vw"
             width={10}
             height={200}
             quality={100}
-            style={{ objectFit: "cover", width: "100%", maxHeight: "226px" }}
+            style={{
+              objectFit: "cover",
+              width: "100%",
+              maxHeight: "226px",
+              minHeight: "130px",
+            }}
             alt="productImage"
           />
         </CardContent>
