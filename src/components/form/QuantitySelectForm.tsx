@@ -22,6 +22,7 @@ import {
 import { toast } from "@/src/components/common/toast/use-toast";
 import { productQuantityArray } from "@/src/constants/product/productQuantity";
 import { Product } from "@/src/types/products";
+import { useCart } from "../../app/cart/useCart";
 
 const FormSchema = z.object({
   quantity: z.string({
@@ -31,6 +32,7 @@ const FormSchema = z.object({
 });
 
 export function QuantitySelectForm({ product }: { product: Product }) {
+  const { mutation } = useCart();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -40,6 +42,7 @@ export function QuantitySelectForm({ product }: { product: Product }) {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
+    mutation.mutate({ title: data.title, quantity: data.quantity });
     toast({
       title: "Item successfully added to your cart!",
       description: (

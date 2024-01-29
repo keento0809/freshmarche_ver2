@@ -15,12 +15,13 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useRenderMenus } from "./useRenderMenus";
 import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { Button } from "../common/button/button";
 import { Input } from "../common/input/input";
+import { useCart } from "@/src/app/cart/useCart";
 
 const menuId = "primary-search-account-menu";
 const mobileMenuId = "primary-search-account-menu-mobile";
@@ -35,6 +36,8 @@ const RenderCommonMenu: FC = () => {
     handleSearch,
     session,
   } = useRenderMenus();
+
+  const { totalNumberOfProducts, productsInCart } = useCart();
 
   return (
     <AppBar position="static">
@@ -93,7 +96,10 @@ const RenderCommonMenu: FC = () => {
             aria-label="show 4 new mails"
             color="inherit"
           >
-            <Badge badgeContent={4} color="error">
+            <Badge
+              badgeContent={<span>{productsInCart.length}</span>}
+              color="error"
+            >
               <ShoppingCartIcon />
             </Badge>
           </IconButton>
