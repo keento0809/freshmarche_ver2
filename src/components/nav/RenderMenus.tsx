@@ -21,7 +21,7 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { Button } from "../common/button/button";
 import { Input } from "../common/input/input";
-import { useCart } from "@/src/app/cart/useCart";
+import { useCart } from "@/src/app/cart/[id]/useCart";
 
 const menuId = "primary-search-account-menu";
 const mobileMenuId = "primary-search-account-menu-mobile";
@@ -33,11 +33,12 @@ const RenderCommonMenu: FC = () => {
     searchParams,
     handleProfileMenuOpen,
     handleMobileMenuOpen,
+    handleReplace,
     handleSearch,
     session,
   } = useRenderMenus();
 
-  const { totalNumberOfProducts, productsInCart } = useCart();
+  const { productsInCart } = useCart();
 
   return (
     <AppBar position="static">
@@ -72,8 +73,8 @@ const RenderCommonMenu: FC = () => {
             </Button>
           </>
         ) : (
-          <Button variant={"outline"} size={"sm"}>
-            Login
+          <Button asChild variant={"outline"} size={"sm"}>
+            <Link href={"/login"}>Login</Link>
           </Button>
         )}
         <Search>
@@ -95,6 +96,7 @@ const RenderCommonMenu: FC = () => {
             size="large"
             aria-label="show 4 new mails"
             color="inherit"
+            onClick={handleReplace}
           >
             <Badge
               badgeContent={<span>{productsInCart.length}</span>}

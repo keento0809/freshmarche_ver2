@@ -13,6 +13,5 @@ export const useQueryProductDetail = ({ id }: { id: string }) => {
   return useQuery<Product, Error>({
     queryKey: ["product", id],
     queryFn,
-    // cacheTime: 6000,
   });
 };

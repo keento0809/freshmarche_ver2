@@ -11,7 +11,7 @@ interface ResponseDataObj {
 }
 
 export const useQuerySearchProducts = ({ query }: { query: string }) => {
-  const queryFn = async (): Promise<Product[]> => {
+  const queryFn = async (): Promise<Array<Product>> => {
     const response: AxiosResponse<ResponseDataObj> = await axios.get(
       query === ""
         ? `${externalUrls.GET_PRODUCTS}`
