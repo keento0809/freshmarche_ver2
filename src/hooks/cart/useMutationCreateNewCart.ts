@@ -10,29 +10,18 @@ type Params = {
   products: Array<CartProduct>;
 };
 
-export const useMutationProductsInCart = ({
-  option,
-}: {
+export const useMutationCreateNewCart = (
   option?: UseMutationOptions<
     AxiosResponse<ResponseAddingCart>,
     AxiosError,
     Params,
     unknown
-  >;
-}) => {
-  const mutationFn = async ({ userId, products }: Params) => {
-    // TODO: add this later
-    // if(!hasLoggedIn) throw new Error('You need to login in!')
+  >
+) => {
+  const mutationFn = async (params: Params) => {
     const response: AxiosResponse<ResponseAddingCart> = await axios.post(
       externalUrls.ADD_PRODUCTS_TO_CART,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userId,
-          products,
-        }),
-      }
+      params
     );
 
     if (!response) throw new Error("Failed to add products to cart...");

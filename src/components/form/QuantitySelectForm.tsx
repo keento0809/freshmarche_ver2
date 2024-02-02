@@ -21,33 +21,58 @@ import {
 } from "@/src/components/common/select/select";
 import { toast } from "@/src/components/common/toast/use-toast";
 import { productQuantityArray } from "@/src/constants/product/productQuantity";
-import { Product } from "@/src/types/products";
-import { useCart } from "../../app/cart/[id]/useCart";
+import { CartProduct, Product } from "@/src/types/products";
+import { useLoggedIn } from "@/src/hooks/auth/useLoggedIn";
+import { useMutationCreateNewCart } from "@/src/hooks/cart/useMutationCreateNewCart";
+import { getLocalStorage, setLocalStorage } from "@/src/lib/localStorage";
+import { localStorageKeys } from "@/src/constants/localStorageKeys/localStorageKeys";
+import { useRouter } from "next/navigation";
 
 const FormSchema = z.object({
-  quantity: z.string({
-    required_error: "Please select a quantity.",
-  }),
-  title: z.string({ required_error: "Product title is empty." }),
+  id: z.string(),
+  quantity: z.string({ required_error: "Product quantity is empty." }),
 });
 
+type PostData = {
+  userId: number;
+  products: Array<CartProduct>;
+};
+
 export function QuantitySelectForm({ product }: { product: Product }) {
-  const { mutation } = useCart();
+  const { id } = product;
+  const { hasLoggedIn } = useLoggedIn();
+  const { mutate } = useMutationCreateNewCart();
+  const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      title: product.title,
+      id: id.toString(),
       quantity: "1",
     },
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    mutation.mutate({ title: data.title, quantity: data.quantity });
+    if (!hasLoggedIn) throw new Error("You need to login in!");
+    const userId = getLocalStorage(localStorageKeys.USER_ID) as string;
+    const { id, quantity } = data;
+
+    const postData: PostData = {
+      userId: Number(userId),
+      products: [{ id: Number(id), quantity: Number(quantity) }],
+    };
+    mutate(postData, {
+      onSuccess: (res) => {
+        // TODO: Need to refactor this code
+        setLocalStorage(localStorageKeys.CART_ID, res.data.id);
+        router.push("/home");
+      },
+      onError: () => console.log("failed..."),
+    });
     toast({
       title: "Item successfully added to your cart!",
       description: (
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+          <code className="text-white">test message</code>
         </pre>
       ),
     });
@@ -61,7 +86,10 @@ export function QuantitySelectForm({ product }: { product: Product }) {
           name="quantity"
           render={({ field }) => (
             <FormItem>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select
+                onValueChange={field.onChange}
+                defaultValue={field.value.toString()}
+              >
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Quantity:" />

@@ -1,40 +1,38 @@
 import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
-import { useState } from "react";
-import { ProductsInCart } from "@/src/types/products";
+import { useEffect, useState } from "react";
+import { Product, ProductsInCart } from "@/src/types/products";
 import { usePathname, useRouter } from "next/navigation";
+import { useMutationIsCartExist } from "@/src/hooks/cart/useMutationIsCartExist";
+import { getLocalStorage } from "@/src/lib/localStorage";
+import { localStorageKeys } from "@/src/constants/localStorageKeys/localStorageKeys";
 
 export const useCart = () => {
-  const [productsInCart, setProductsInCart] = useState<ProductsInCart[]>([]);
+  const [isCartExist, setIsCartExist] = useState(false);
+  const [cart, setCart] = useState<Array<Product>>([]);
+  const cartId = getLocalStorage(localStorageKeys.CART_ID);
+  const userId = getLocalStorage(localStorageKeys.USER_ID);
   const pathname = usePathname();
   const router = useRouter();
+  const { mutate } = useMutationIsCartExist();
 
-  const queryClient = useQueryClient();
-
-  const mutateProducts = (p: ProductsInCart) => {
-    return new Promise(() =>
-      setTimeout(() => setProductsInCart((prev) => [...prev, p]), 100)
-    );
-  };
-
-  const cartQuery = useQuery({
-    queryKey: ["productsInCart"],
-    queryFn: () => productsInCart,
-  });
-
-  const mutation = useMutation({
-    mutationFn: mutateProducts,
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ["productsInCart"] }),
-  });
-
-  const totalNumberOfProducts = productsInCart.reduce((total, curr) => {
-    return total + Number(curr.quantity);
-  }, 0);
+  useEffect(() => {
+    if (userId) {
+      mutate(
+        { userId: Number(userId) },
+        {
+          onSuccess: (res) => {
+            console.log(res.data.carts[0].products[0]);
+            setCart([...res.data.carts[0].products]);
+            setIsCartExist(true);
+          },
+          onError: () => console.log("failed..."),
+        }
+      );
+    }
+  }, [mutate, userId]);
 
   return {
-    cartQuery,
-    totalNumberOfProducts,
-    mutation,
-    productsInCart,
+    cart,
+    isCartExist,
   };
 };

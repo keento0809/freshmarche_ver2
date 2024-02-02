@@ -14,14 +14,15 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useRenderMenus } from "./useRenderMenus";
-import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
-import { FC, useEffect } from "react";
+import { Search, SearchIconWrapper } from "./styles";
+import { FC } from "react";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { Button } from "../common/button/button";
 import { Input } from "../common/input/input";
 import { useCart } from "@/src/app/cart/[id]/useCart";
+import { useLoggedIn } from "@/src/hooks/auth/useLoggedIn";
 
 const menuId = "primary-search-account-menu";
 const mobileMenuId = "primary-search-account-menu-mobile";
@@ -37,8 +38,7 @@ const RenderCommonMenu: FC = () => {
     handleSearch,
     session,
   } = useRenderMenus();
-
-  const { productsInCart } = useCart();
+  const { hasLoggedIn } = useLoggedIn();
 
   return (
     <AppBar position="static">
@@ -59,19 +59,14 @@ const RenderCommonMenu: FC = () => {
           </Link>
         </Typography>
         {/* TODO: Delete this later */}
-        {session ? (
-          <>
-            <Typography
-              variant="body1"
-              component="div"
-              sx={{ color: "orange" }}
-            >
-              Logged in!
-            </Typography>
-            <Button variant={"outline"} size={"sm"} onClick={() => signOut()}>
-              Logout
-            </Button>
-          </>
+        {hasLoggedIn ? (
+          <Button
+            variant={"outline"}
+            size={"sm"}
+            onClick={() => console.log("Sign out")}
+          >
+            Logout
+          </Button>
         ) : (
           <Button asChild variant={"outline"} size={"sm"}>
             <Link href={"/login"}>Login</Link>
@@ -98,10 +93,7 @@ const RenderCommonMenu: FC = () => {
             color="inherit"
             onClick={handleReplace}
           >
-            <Badge
-              badgeContent={<span>{productsInCart.length}</span>}
-              color="error"
-            >
+            <Badge badgeContent={-2} color="error">
               <ShoppingCartIcon />
             </Badge>
           </IconButton>
