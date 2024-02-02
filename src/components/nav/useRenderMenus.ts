@@ -2,8 +2,12 @@ import { useState } from "react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 import { useSession, signOut } from "next-auth/react";
+import { getLocalStorage } from "@/src/lib/localStorage";
+import { localStorageKeys } from "@/src/constants/localStorageKeys/localStorageKeys";
+import { useLoggedIn } from "@/src/hooks/auth/useLoggedIn";
 
 export const useRenderMenus = () => {
+  const { hasLoggedIn } = useLoggedIn();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     useState<null | HTMLElement>(null);
@@ -46,6 +50,14 @@ export const useRenderMenus = () => {
     router.replace(`${pathname}?${params.toString()}`);
   }, 500);
 
+  const handleReplace = () => {
+    if (!hasLoggedIn) return;
+    const userId = getLocalStorage(localStorageKeys.USER_ID);
+    if (!userId) throw new Error(`Something is wrong...`);
+
+    router.push(`/cart/${userId}`);
+  };
+
   return {
     anchorEl,
     mobileMoreAnchorEl,
@@ -57,6 +69,7 @@ export const useRenderMenus = () => {
     handleMobileMenuOpen,
     handleMenuClose,
     handleSearch,
+    handleReplace,
     session,
     signOut,
   };

@@ -11,3 +11,13 @@ export type Product = {
   thumbnail: string;
   images: Array<string>;
 };
+
+export type ProductsInCart = {
+  title: string;
+  quantity: string;
+};
+
+export type CartProduct = {
+  id: number;
+  quantity: number;
+};

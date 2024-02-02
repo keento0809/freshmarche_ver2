@@ -22,7 +22,7 @@ import {
 import { toast } from "@/src/components/common/toast/use-toast";
 import { productQuantityArray } from "@/src/constants/product/productQuantity";
 import { Product } from "@/src/types/products";
-import { useCart } from "../../app/cart/useCart";
+import { useCart } from "../../app/cart/[id]/useCart";
 
 const FormSchema = z.object({
   quantity: z.string({

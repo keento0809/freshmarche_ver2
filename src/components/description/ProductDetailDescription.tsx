@@ -8,8 +8,6 @@ import {
   CardTitle,
 } from "../common/card/card";
 import { cn } from "@/src/lib/utils";
-import { Button } from "../common/button/button";
-import { Input } from "../common/input/input";
 import { QuantitySelectForm } from "../form/QuantitySelectForm";
 
 type ProductDetailDescriptionType = {
@@ -24,7 +22,7 @@ export const ProductDetailDescription = ({
   return (
     <Card
       className={cn(
-        "bg-transparent w-full border-none outline-none flex flex-col gap-8",
+        "bg-transparent w-full border-none outline-none flex flex-col gap-8 shadow-none",
         className
       )}
     >
