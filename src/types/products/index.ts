@@ -17,7 +17,4 @@ export type ProductsInCart = {
   quantity: string;
 };
 
-export type CartProduct = {
-  id: number;
-  quantity: number;
-};
+export type CartProduct = Product & Omit<ProductsInCart, "title">;
