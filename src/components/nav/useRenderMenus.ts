@@ -5,6 +5,8 @@ import { useSession, signOut } from "next-auth/react";
 import { getLocalStorage } from "@/src/lib/localStorage";
 import { localStorageKeys } from "@/src/constants/localStorageKeys/localStorageKeys";
 import { useLoggedIn } from "@/src/hooks/auth/useLoggedIn";
+import { useQueryClient } from "@tanstack/react-query";
+import { CartProduct } from "@/src/types/products";
 
 export const useRenderMenus = () => {
   const { hasLoggedIn } = useLoggedIn();
@@ -17,9 +19,16 @@ export const useRenderMenus = () => {
   const router = useRouter();
 
   const { data: session } = useSession();
+  const queryClient = useQueryClient();
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const userId = getLocalStorage(localStorageKeys.USER_ID);
+
+  const cartInfo = queryClient.getQueryData<Array<CartProduct>>([
+    "cart",
+    userId,
+  ]);
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -72,5 +81,6 @@ export const useRenderMenus = () => {
     handleReplace,
     session,
     signOut,
+    cartInfo,
   };
 };

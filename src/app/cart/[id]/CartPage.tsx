@@ -2,14 +2,12 @@
 
 import { Button } from "@/src/components/common/button/button";
 import { useLoggedIn } from "@/src/hooks/auth/useLoggedIn";
-import { useMutationIsCartExist } from "@/src/hooks/cart/useMutationIsCartExist";
 import Link from "next/link";
 import { useCart } from "./useCart";
 
 export const CartPage = () => {
   const { hasLoggedIn } = useLoggedIn();
-  const { cart } = useCart();
-  console.log("cart: ", cart);
+  const { cartData } = useCart();
 
   if (!hasLoggedIn)
     return (
@@ -34,11 +32,14 @@ export const CartPage = () => {
           </div>
           <div className="flex flex-col gap-4">
             <h2 className="text-2xl font-semibold text-center">Your Cart</h2>
-            <div className="">
-              {cart?.map((p) => {
+            <div className="flex flex-col gap-4">
+              {cartData?.map((cartProduct) => {
                 return (
-                  <div key={p.id} className="text-md font-normal py-2">
-                    {p.title}
+                  <div key={cartProduct.id} className="flex flex-col gap-1">
+                    <h2 className="text-xl font-semibold tracking-tight">
+                      {cartProduct.title}
+                    </h2>
+                    <p className="font-normal">{cartProduct.description}</p>
                   </div>
                 );
               })}

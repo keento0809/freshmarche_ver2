@@ -27,21 +27,22 @@ import { useMutationCreateNewCart } from "@/src/hooks/cart/useMutationCreateNewC
 import { getLocalStorage, setLocalStorage } from "@/src/lib/localStorage";
 import { localStorageKeys } from "@/src/constants/localStorageKeys/localStorageKeys";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
 const FormSchema = z.object({
   id: z.string(),
   quantity: z.string({ required_error: "Product quantity is empty." }),
 });
 
-type PostData = {
-  userId: number;
-  products: Array<CartProduct>;
-};
+// type PostData = {
+//   userId: number;
+//   products: Array<CartProduct>;
+// };
 
 export function QuantitySelectForm({ product }: { product: Product }) {
   const { id } = product;
   const { hasLoggedIn } = useLoggedIn();
-  const { mutate } = useMutationCreateNewCart();
+  // const { mutate } = useMutationCreateNewCart();
   const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -50,24 +51,38 @@ export function QuantitySelectForm({ product }: { product: Product }) {
       quantity: "1",
     },
   });
+  const queryClient = useQueryClient();
+
+  const updateCart = (data: CartProduct, userId: string) => {
+    queryClient.setQueryData(["cart", userId], (prevData: Array<CartProduct>) =>
+      prevData ? [...prevData, data] : [data]
+    );
+    console.log("update complete!!");
+  };
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     if (!hasLoggedIn) throw new Error("You need to login in!");
     const userId = getLocalStorage(localStorageKeys.USER_ID) as string;
-    const { id, quantity } = data;
-
-    const postData: PostData = {
-      userId: Number(userId),
-      products: [{ id: Number(id), quantity: Number(quantity) }],
+    // const { id, quantity } = data;
+    const cartProductData: CartProduct = {
+      ...product,
+      quantity: data.quantity,
     };
-    mutate(postData, {
-      onSuccess: (res) => {
-        // TODO: Need to refactor this code
-        setLocalStorage(localStorageKeys.CART_ID, res.data.id);
-        router.push("/home");
-      },
-      onError: () => console.log("failed..."),
-    });
+    updateCart(cartProductData, userId);
+
+    // const postData: PostData = {
+    //   userId: Number(userId),
+    //   products: [{ id: Number(id), quantity: Number(quantity) }],
+    // };
+    // mutate(postData, {
+    //   onSuccess: (res) => {
+    //     // TODO: Need to refactor this code
+    //     setLocalStorage(localStorageKeys.CART_ID, res.data.id);
+    //     queryClient.setQueriesData(['cart'])
+    //   },
+    //   onError: () => console.log("failed..."),
+    // });
+    router.push("/home");
     toast({
       title: "Item successfully added to your cart!",
       description: (

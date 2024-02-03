@@ -37,6 +37,7 @@ const RenderCommonMenu: FC = () => {
     handleReplace,
     handleSearch,
     session,
+    cartInfo,
   } = useRenderMenus();
   const { hasLoggedIn } = useLoggedIn();
 
@@ -93,7 +94,7 @@ const RenderCommonMenu: FC = () => {
             color="inherit"
             onClick={handleReplace}
           >
-            <Badge badgeContent={-2} color="error">
+            <Badge badgeContent={cartInfo?.length} color="error">
               <ShoppingCartIcon />
             </Badge>
           </IconButton>
@@ -191,7 +192,7 @@ const RenderMobileMenu: FC = () => {
     >
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
+          <Badge badgeContent={"4"} color="error">
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
