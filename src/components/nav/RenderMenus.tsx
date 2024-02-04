@@ -31,8 +31,6 @@ const mobileMenuId = "primary-search-account-menu-mobile";
 
 // Render Menu for both mobile and desktop
 const RenderCommonMenu: FC = () => {
-  const router = useRouter();
-  const { hasLoggedIn } = useLoggedIn();
   const {
     searchParams,
     handleProfileMenuOpen,
@@ -42,6 +40,8 @@ const RenderCommonMenu: FC = () => {
     session,
     cartInfo,
   } = useRenderMenus();
+  const { cartData } = useCart();
+  console.log("nagasa: ", cartData?.length);
 
   return (
     <AppBar position="static">
@@ -105,7 +105,10 @@ const RenderCommonMenu: FC = () => {
             color="inherit"
             onClick={handleReplace}
           >
-            <Badge badgeContent={cartInfo?.length} color="error">
+            <Badge
+              badgeContent={cartData ? `${cartData.length}` : "0"}
+              color="error"
+            >
               <ShoppingCartIcon />
             </Badge>
           </IconButton>

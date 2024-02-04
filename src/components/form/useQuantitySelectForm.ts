@@ -35,6 +35,7 @@ export const useQuantitySelectForm = ({ product }: { product: Product }) => {
   function onSubmit(data: z.infer<typeof FormSchema>) {
     if (!session) throw new Error("You need to login in!");
     const userId = session.user.id;
+    if (!userId) throw new Error("No user found...");
     const cartProductData: CartProduct = {
       ...product,
       quantity: data.quantity,

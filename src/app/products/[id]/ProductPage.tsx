@@ -8,6 +8,7 @@ import { ProductDetailDescription } from "@/src/components/description/ProductDe
 import { Button } from "@/src/components/common/button/button";
 import Link from "next/link";
 import { useProductPage } from "./useProductPage";
+import { Loader } from "@/src/components/loader/Loader";
 
 export const ProductPage = ({ id }: { id: string }) => {
   const { product, isLoading, error, handleClick, selectedImgUrl } =
@@ -15,7 +16,9 @@ export const ProductPage = ({ id }: { id: string }) => {
 
   if (isLoading)
     return (
-      <FlexWrapper styles={{ position: "relative" }}>Loading...</FlexWrapper>
+      <FlexWrapper styles={{ position: "relative" }}>
+        <Loader />
+      </FlexWrapper>
     );
   if (error) notFound();
   if (!product) return <div className="pt-8">No product found</div>;
