@@ -7,9 +7,9 @@ import { useCart } from "./useCart";
 
 export const CartPage = () => {
   const { hasLoggedIn } = useLoggedIn();
-  const { cartData } = useCart();
+  const { cartData, session } = useCart();
 
-  if (!hasLoggedIn)
+  if (!session)
     return (
       <div className="fixed top-32 left-0 right-0 z-20">
         <p className="text-lg font-semibold text-center">

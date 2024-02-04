@@ -23,6 +23,8 @@ import { Button } from "../common/button/button";
 import { Input } from "../common/input/input";
 import { useCart } from "@/src/app/cart/[id]/useCart";
 import { useLoggedIn } from "@/src/hooks/auth/useLoggedIn";
+import { clearLocalStorage, removeLocalStorage } from "@/src/lib/localStorage";
+import { localStorageKeys } from "@/src/constants/localStorageKeys/localStorageKeys";
 
 const menuId = "primary-search-account-menu";
 const mobileMenuId = "primary-search-account-menu-mobile";
@@ -30,6 +32,7 @@ const mobileMenuId = "primary-search-account-menu-mobile";
 // Render Menu for both mobile and desktop
 const RenderCommonMenu: FC = () => {
   const router = useRouter();
+  const { hasLoggedIn } = useLoggedIn();
   const {
     searchParams,
     handleProfileMenuOpen,
@@ -39,7 +42,6 @@ const RenderCommonMenu: FC = () => {
     session,
     cartInfo,
   } = useRenderMenus();
-  const { hasLoggedIn } = useLoggedIn();
 
   return (
     <AppBar position="static">
@@ -60,11 +62,20 @@ const RenderCommonMenu: FC = () => {
           </Link>
         </Typography>
         {/* TODO: Delete this later */}
-        {hasLoggedIn ? (
+        {session ? (
           <Button
             variant={"outline"}
             size={"sm"}
-            onClick={() => console.log("Sign out")}
+            onClick={() => {
+              signOut({ callbackUrl: "http://localhost:3000/login" })
+                .then(() => {
+                  clearLocalStorage();
+                  console.log("Successfully signed out!");
+                })
+                .catch(
+                  (err) => err instanceof Error && console.log(err.message)
+                );
+            }}
           >
             Logout
           </Button>
@@ -140,6 +151,7 @@ const RenderCommonMenu: FC = () => {
 const RenderMenu: FC = () => {
   const { anchorEl, isMenuOpen, handleMenuClose, session, signOut } =
     useRenderMenus();
+  const router = useRouter();
 
   return (
     <Menu
@@ -159,7 +171,21 @@ const RenderMenu: FC = () => {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-      {session && <MenuItem onClick={() => signOut()}>Logout</MenuItem>}
+      {session && (
+        <MenuItem
+          onClick={() =>
+            signOut()
+              .then(() => {
+                removeLocalStorage(localStorageKeys.USER_TOKEN);
+                console.log("Successfully signed out!");
+                router.push("/");
+              })
+              .catch((err) => err instanceof Error && console.log(err.message))
+          }
+        >
+          Logout
+        </MenuItem>
+      )}
     </Menu>
   );
 };

@@ -5,6 +5,7 @@ import { useQuerySearchProducts } from "@/src/hooks/products/useQuerySearchProdu
 import { ProductList } from "../../components/list/ProductList";
 import { Box } from "@mui/material";
 import { ProductListSkeleton } from "@/src/components/skelton/ProductListSkeleton";
+import { useSession } from "next-auth/react";
 
 export const HomePage = ({ query }: { query: string }) => {
   const {
@@ -14,6 +15,8 @@ export const HomePage = ({ query }: { query: string }) => {
   } = useQuerySearchProducts({
     query,
   });
+  const { data: session } = useSession();
+  console.log("セッション: ", session);
   return (
     <Box
       mx={"auto"}

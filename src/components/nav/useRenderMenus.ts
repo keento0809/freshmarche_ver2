@@ -60,8 +60,8 @@ export const useRenderMenus = () => {
   }, 500);
 
   const handleReplace = () => {
-    if (!hasLoggedIn) return;
-    const userId = getLocalStorage(localStorageKeys.USER_ID);
+    if (!session) throw new Error("No session found...");
+    const userId = session.user.id;
     if (!userId) throw new Error(`Something is wrong...`);
 
     router.push(`/cart/${userId}`);
