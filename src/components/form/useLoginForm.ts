@@ -31,11 +31,13 @@ export const useLoginForm = () => {
     email: string;
     password: string;
   }> | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const emailError = errors?.issues.find((e) => e.path[0] === "email");
   const passwordError = errors?.issues.find((e) => e.path[0] === "password");
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsLoading(true);
     const loginUserData = new FormData(event.currentTarget);
     const credentials = {
       email: loginUserData.get("email"),
@@ -58,11 +60,11 @@ export const useLoginForm = () => {
         callbackUrl: `http://localhost:3000/home`,
       });
       const session = await getSession();
-      session?.accessToken &&
-        setLocalStorage(localStorageKeys.USER_TOKEN, session.accessToken);
     } catch (err) {
       if (err instanceof Error) console.log(err.message);
       throw new Error("Failed to login...");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -71,5 +73,6 @@ export const useLoginForm = () => {
     emailError,
     passwordError,
     onSubmit,
+    isLoading,
   };
 };
