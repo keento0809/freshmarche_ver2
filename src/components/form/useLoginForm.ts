@@ -1,36 +1,47 @@
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { type ZodError, z } from "zod";
-import { signIn } from "next-auth/react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { getSession, signIn } from "next-auth/react";
 import { EMAIL_PATTERN } from "@/src/constants/regex/regex";
+import { setLocalStorage } from "@/src/lib/localStorage";
+import { localStorageKeys } from "@/src/constants/localStorageKeys/localStorageKeys";
 
-const UserSchema = z.object({
+const FormSchema = z.object({
   email: z
     .string()
     .email({ message: "Please enter correct email address" })
     .regex(EMAIL_PATTERN, { message: "Please enter correct pattern" }),
   password: z
-    .string()
+    .string({ required_error: "Password is required." })
     // TODO: Fix this validation (1) later
-    .min(1, { message: "Password should be more than 6 characters" }),
+    .min(2, { message: "Password must be more than 6 characters" }),
 });
 
-export const useLoginPage = () => {
+export const useLoginForm = () => {
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
   const [errors, setErrors] = useState<ZodError<{
     email: string;
     password: string;
   }> | null>(null);
-
   const emailError = errors?.issues.find((e) => e.path[0] === "email");
   const passwordError = errors?.issues.find((e) => e.path[0] === "password");
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const loginUserData = new FormData(event.currentTarget);
     const credentials = {
       email: loginUserData.get("email"),
       password: loginUserData.get("password"),
     };
-    const parsedCredentials = UserSchema.safeParse(credentials);
+    const parsedCredentials = FormSchema.safeParse(credentials);
 
     if (!parsedCredentials.success) {
       setErrors(parsedCredentials.error);
@@ -46,6 +57,9 @@ export const useLoginPage = () => {
         // TODO: fix this url for production
         callbackUrl: `http://localhost:3000/home`,
       });
+      const session = await getSession();
+      session?.accessToken &&
+        setLocalStorage(localStorageKeys.USER_TOKEN, session.accessToken);
     } catch (err) {
       if (err instanceof Error) console.log(err.message);
       throw new Error("Failed to login...");
@@ -53,8 +67,9 @@ export const useLoginPage = () => {
   };
 
   return {
+    form,
     emailError,
     passwordError,
-    handleSubmit,
+    onSubmit,
   };
 };

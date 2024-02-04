@@ -23,3 +23,13 @@ export const setLocalStorage = (
   }
   window.localStorage.setItem(key, JSON.stringify(value));
 };
+
+export const removeLocalStorage = (key: string): void => {
+  if (typeof window === undefined) return;
+  window.localStorage.removeItem(key);
+};
+
+export const clearLocalStorage = (): void => {
+  if (typeof window === undefined) return;
+  window.localStorage.clear();
+};
