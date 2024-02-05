@@ -45,10 +45,9 @@ export const authOptions: AuthOptions = {
     updateAge: 24 * 60 * 60, // 24 hours
   },
   callbacks: {
-    async session({ session, token }) {
-      session.user.id = token.sub as string;
+    async session({ session, token, user }) {
+      session.user.id = user.id;
       session.accessToken = token.sub;
-      // session.user.id = user.id;
       return session;
     },
   },
