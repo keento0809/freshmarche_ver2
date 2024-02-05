@@ -3,7 +3,7 @@ import { CartProduct } from "@/src/types/products";
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/src/lib/prisma";
 
-export default async function POST(req: NextRequest) {
+export async function POST(req: NextRequest, res: NextResponse) {
   if (req.method === "POST") {
     const body = (await req.json()) as Cart;
     const { userId, products } = body;
