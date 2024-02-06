@@ -15,6 +15,7 @@ import { useSignupPage } from "./useSignupPage";
 import { redirect } from "next/navigation";
 import { ErrorMessage } from "@/src/components/message/ErrorMessage";
 import Link from "next/link";
+import { SignupForm } from "@/src/components/form/SignupForm";
 
 export const SignupPage: FC = () => {
   const { usernameError, emailError, passwordError, isSuccess, handleSubmit } =
@@ -26,7 +27,8 @@ export const SignupPage: FC = () => {
     <Box position="relative" sx={{ pt: "100px" }}>
       <FlexWrapper>
         <MainTitle title={"Sign up"} />
-        <Box
+        <SignupForm />
+        {/* <Box
           id="signupForm"
           component="form"
           onSubmit={handleSubmit}
@@ -87,7 +89,7 @@ export const SignupPage: FC = () => {
               here!
             </Typography>
           </Box>
-        </Box>
+        </Box> */}
       </FlexWrapper>
     </Box>
   );

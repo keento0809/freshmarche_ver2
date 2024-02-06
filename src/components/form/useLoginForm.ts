@@ -9,7 +9,7 @@ import { localStorageKeys } from "@/src/constants/localStorageKeys/localStorageK
 
 const FormSchema = z.object({
   email: z
-    .string()
+    .string({ required_error: "Email is required." })
     .email({ message: "Please enter correct email address" })
     .regex(EMAIL_PATTERN, { message: "Please enter correct pattern" }),
   password: z
