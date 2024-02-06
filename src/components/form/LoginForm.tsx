@@ -12,10 +12,10 @@ import {
 import { Input } from "@/src/components/common/input/input";
 import { useLoginForm } from "@/src/components/form/useLoginForm";
 import { Loader } from "@/src/components/loader/Loader";
-// import { toast } from "@/src/components/common/toast/use-toast";
 
 export const LoginForm = () => {
-  const { form, onSubmit, isLoading } = useLoginForm();
+  const { form, onSubmit, isLoading, emailError, passwordError } =
+    useLoginForm();
 
   return (
     <>
@@ -34,7 +34,7 @@ export const LoginForm = () => {
                 <FormControl>
                   <Input placeholder="email" {...field} />
                 </FormControl>
-                <FormMessage />
+                <FormMessage>{emailError && emailError.message}</FormMessage>
               </FormItem>
             )}
           />
@@ -47,7 +47,9 @@ export const LoginForm = () => {
                 <FormControl>
                   <Input type="password" placeholder="password" {...field} />
                 </FormControl>
-                <FormMessage />
+                <FormMessage>
+                  {passwordError && passwordError.message}
+                </FormMessage>
               </FormItem>
             )}
           />

@@ -7,5 +7,5 @@ type ErrorMessageProps = {
 };
 
 export const ErrorMessage: FC<ErrorMessageProps> = ({ error }) => {
-  return <Box sx={{ color: "red", minWidth: "400px" }}>{error.message}</Box>;
+  return <div className="text-red-500 min-w-[400px]">{error.message}</div>;
 };

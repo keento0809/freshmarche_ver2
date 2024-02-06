@@ -10,26 +10,12 @@ import {
   FormMessage,
 } from "@/src/components/common/form/form";
 import { Input } from "@/src/components/common/input/input";
-import { EMAIL_PATTERN } from "@/src/constants/regex/regex";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-
-const FormSchema = z.object({
-  username: z
-    .string({ required_error: "Username is required." })
-    .min(2, { message: "Username must be more than 2 words" }),
-  email: z
-    .string({ required_error: "Email is required." })
-    .email({ message: "Please enter correct email address" })
-    .regex(EMAIL_PATTERN, { message: "Please enter correct pattern" }),
-  password: z
-    .string({ required_error: "Password is required." })
-    .min(2, { message: "Password must be more than 6 characters" }),
-});
+import { useSignupForm } from "./useSignupForm";
 
 export const SignupForm = () => {
-  const form = useForm<z.infer<typeof FormSchema>>();
-  const onSubmit = () => {};
+  const { form, onSubmit, usernameError, emailError, passwordError } =
+    useSignupForm();
+
   return (
     <Form {...form}>
       <form
@@ -45,7 +31,9 @@ export const SignupForm = () => {
               <FormControl>
                 <Input placeholder="username" {...field} />
               </FormControl>
-              <FormMessage />
+              <FormMessage>
+                {usernameError && usernameError.message}
+              </FormMessage>
             </FormItem>
           )}
         />
@@ -58,7 +46,7 @@ export const SignupForm = () => {
               <FormControl>
                 <Input placeholder="email" {...field} />
               </FormControl>
-              <FormMessage />
+              <FormMessage>{emailError && emailError.message}</FormMessage>
             </FormItem>
           )}
         />
@@ -71,7 +59,9 @@ export const SignupForm = () => {
               <FormControl>
                 <Input type="password" placeholder="password" {...field} />
               </FormControl>
-              <FormMessage />
+              <FormMessage>
+                {passwordError && passwordError.message}
+              </FormMessage>
             </FormItem>
           )}
         />

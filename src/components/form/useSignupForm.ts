@@ -1,45 +1,42 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { type ZodError, z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { getSession, signIn } from "next-auth/react";
+import { ZodError, z } from "zod";
 import { EMAIL_PATTERN } from "@/src/constants/regex/regex";
+import { useForm } from "react-hook-form";
 
 const FormSchema = z.object({
+  username: z
+    .string({ required_error: "Username is required." })
+    .min(2, { message: "Username must be more than 2 words" }),
   email: z
     .string({ required_error: "Email is required." })
     .email({ message: "Please enter correct email address" })
     .regex(EMAIL_PATTERN, { message: "Please enter correct pattern" }),
   password: z
     .string({ required_error: "Password is required." })
-    // TODO: Fix this validation (1) later
     .min(2, { message: "Password must be more than 6 characters" }),
 });
 
-export const useLoginForm = () => {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
-
+export const useSignupForm = () => {
   const [errors, setErrors] = useState<ZodError<{
+    username: string;
     email: string;
     password: string;
   }> | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const form = useForm<z.infer<typeof FormSchema>>();
 
+  const usernameError = errors?.issues.find((e) => e.path[0] === "username");
   const emailError = errors?.issues.find((e) => e.path[0] === "email");
   const passwordError = errors?.issues.find((e) => e.path[0] === "password");
 
-  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const loginUserData = new FormData(event.currentTarget);
+
+    const signUpUserData = new FormData(event.currentTarget);
     const credentials = {
-      email: loginUserData.get("email"),
-      password: loginUserData.get("password"),
+      username: signUpUserData.get("username"),
+      email: signUpUserData.get("email"),
+      password: signUpUserData.get("password"),
     };
     const parsedCredentials = FormSchema.safeParse(credentials);
 
@@ -48,30 +45,19 @@ export const useLoginForm = () => {
       return;
     }
 
-    const { email, password } = credentials;
     setIsLoading(true);
 
     try {
-      await signIn("credentials", {
-        email,
-        password,
-        // TODO: fix this url for production
-        callbackUrl: `http://localhost:3000/home`,
-      });
-      const session = await getSession();
-    } catch (err) {
-      if (err instanceof Error) console.log(err.message);
-      throw new Error("Failed to login...");
+    } catch (error) {
     } finally {
       setIsLoading(false);
     }
   };
-
   return {
     form,
+    onSubmit,
+    usernameError,
     emailError,
     passwordError,
-    onSubmit,
-    isLoading,
   };
 };
