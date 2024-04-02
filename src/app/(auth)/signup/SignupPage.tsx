@@ -2,19 +2,10 @@
 
 import { FC } from "react";
 import { FlexWrapper } from "@/src/components/wrapper/FlexWrapper";
-import {
-  Box,
-  TextField,
-  Button,
-  FormControlLabel,
-  Checkbox,
-  Typography,
-} from "@mui/material";
+import { Box } from "@mui/material";
 import MainTitle from "@/src/components/title/MainTitle";
 import { useSignupPage } from "./useSignupPage";
 import { redirect } from "next/navigation";
-import { ErrorMessage } from "@/src/components/message/ErrorMessage";
-import Link from "next/link";
 import { SignupForm } from "@/src/components/form/SignupForm";
 
 export const SignupPage: FC = () => {

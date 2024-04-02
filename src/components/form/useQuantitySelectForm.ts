@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { CartProduct, Product } from "@/src/types/products";
 import { useQueryClient } from "@tanstack/react-query";
-import { toast } from "@/src/components/common/toast/use-toast";
 
 import { z } from "zod";
 

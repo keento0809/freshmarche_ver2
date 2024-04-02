@@ -1,5 +1,4 @@
 import { externalUrls } from "@/src/constants/urls/externalUrls";
-import { setLocalStorage } from "@/src/lib/localStorage";
 import { ResponseAddingCart } from "@/src/types/api";
 import { CartProduct } from "@/src/types/products";
 import { UseMutationOptions, useMutation } from "@tanstack/react-query";
@@ -25,7 +24,6 @@ export const useMutationCreateNewCart = (
     );
 
     if (!response) throw new Error("Failed to add products to cart...");
-    console.log("追加したデー！", response);
 
     return response;
   };
