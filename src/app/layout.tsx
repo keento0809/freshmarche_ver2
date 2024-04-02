@@ -6,6 +6,7 @@ import SessionProvider from "../providers/SessionProvider";
 import { getServerAuthSession } from "./api/auth/[...nextauth]/route";
 import { cn } from "../lib/utils";
 import { fontSans } from "../lib/fonts";
+import { RootClient } from "./_components/rootClient";
 
 export const metadata = {
   title: "TechMarche",
@@ -23,14 +24,7 @@ export default async function RootLayout({
     <html lang="en">
       {/* // suppressHydrationWarning prevents extensions from causing a server/client mismatch */}
       <body suppressHydrationWarning={true} className={cn(fontSans.variable)}>
-        <SessionProvider session={session}>
-          <ReactQueryProvider>
-            <BgWrapper>
-              <Nav />
-              {children}
-            </BgWrapper>
-          </ReactQueryProvider>
-        </SessionProvider>
+        <RootClient session={session}>{children}</RootClient>
       </body>
     </html>
   );

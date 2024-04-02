@@ -15,24 +15,14 @@ const styles = {
 export default function Home() {
   return (
     <main>
-      <FlexWrapper styles={styles}>
-        <Box sx={{ zIndex: "10" }}>
-          <Typography
-            variant="h2"
-            sx={{ letterSpacing: "-1px", fontSize: "32px", fontWeight: "400" }}
-          >
-            {landingPageTexts.title}
-          </Typography>
-          <Button
-            asChild
-            variant={"outline"}
-            size={"sm"}
-            className="border border-red-400"
-          >
-            <Link href={"/home"}>Get started</Link>
-          </Button>
-        </Box>
-      </FlexWrapper>
+      <Button
+        asChild
+        variant={"outline"}
+        size={"sm"}
+        className="border border-red-400"
+      >
+        <Link href={"/home"}>Get started</Link>
+      </Button>
     </main>
   );
 }
