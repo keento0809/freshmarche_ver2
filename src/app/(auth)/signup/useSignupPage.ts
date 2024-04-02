@@ -1,5 +1,4 @@
 import { EMAIL_PATTERN } from "@/src/constants/regex/regex";
-import { redirect } from "next/navigation";
 import { useState } from "react";
 import { type ZodError, z } from "zod";
 

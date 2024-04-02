@@ -2,7 +2,7 @@
 
 import { FC } from "react";
 import Link from "next/link";
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { FlexWrapper } from "../components/wrapper/FlexWrapper";
 
 const styles = {

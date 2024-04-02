@@ -1,5 +1,4 @@
 import { externalUrls } from "@/src/constants/urls/externalUrls";
-import { setLocalStorage } from "@/src/lib/localStorage";
 import { ResponseUserLogin } from "@/src/types/api";
 import { UseMutationOptions, useMutation } from "@tanstack/react-query";
 import axios, { AxiosError, AxiosResponse } from "axios";

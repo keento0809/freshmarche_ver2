@@ -1,8 +1,8 @@
 "use client";
 
-import MainTitle from "../../components/title/MainTitle";
+import MainTitle from "../../../components/title/MainTitle";
 import { useQuerySearchProducts } from "@/src/hooks/products/useQuerySearchProducts";
-import { ProductList } from "../../components/list/ProductList";
+import { ProductList } from "../../../components/list/ProductList";
 import { ProductListSkeleton } from "@/src/components/skelton/ProductListSkeleton";
 
 export const HomePage = ({ query }: { query: string }) => {

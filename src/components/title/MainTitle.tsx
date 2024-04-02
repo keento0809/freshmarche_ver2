@@ -1,5 +1,4 @@
 import { cn } from "@/src/lib/utils";
-import Typography from "@mui/material/Typography";
 
 interface Props {
   title: string;
