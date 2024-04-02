@@ -1,12 +1,8 @@
-import { Nav } from "@/src/components/nav/Nav";
 import "./globals.css";
-import { ReactQueryProvider } from "../providers/ReactQueryProvider";
-import { BgWrapper } from "../components/wrapper/BgWrapper";
-import SessionProvider from "../providers/SessionProvider";
 import { getServerAuthSession } from "./api/auth/[...nextauth]/route";
 import { cn } from "../lib/utils";
 import { fontSans } from "../lib/fonts";
-import { RootClient } from "./_components/rootClient";
+import { RootClient } from "@/src/app/_components/RootClient";
 
 export const metadata = {
   title: "TechMarche",
