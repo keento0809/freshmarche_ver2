@@ -1,3 +1,4 @@
+import { Navbar } from "@/src/components/layout/Navbar";
 import { FC } from "react";
 
 type RootHandleProps = {
@@ -7,7 +8,7 @@ type RootHandleProps = {
 export const RootHandle: FC<RootHandleProps> = ({ children }) => {
   return (
     <>
-      {/* TODO:Add Nav here */}
+      <Navbar />
       {children}
       {/* TODO:Add Nav here */}
     </>
