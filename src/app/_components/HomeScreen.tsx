@@ -9,7 +9,7 @@ export const HomeScreen = () => {
     <main className="min-h-svh flex flex-col gap-6 justify-center items-center lg:pb-10">
       <MainTitle title="Tech Marche" />
       <div>
-        <LoginDialog />
+        <LoginDialog triggerText="Start with Login" />
       </div>
       <div>
         <Link

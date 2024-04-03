@@ -10,11 +10,17 @@ import {
 } from "@/src/components/common/dialog/dialog";
 import { LoginForm } from "@/src/components/form/LoginForm";
 
-export const LoginDialog = () => {
+type LoginDialogProps = {
+  triggerText: string;
+};
+
+export const LoginDialog = ({ triggerText }: LoginDialogProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Start with login</Button>
+        <Button variant="outline" className="text-sm">
+          {triggerText}
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] p-8">
         <DialogHeader className="pb-2">
