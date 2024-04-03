@@ -1,4 +1,3 @@
-import { Grid } from "@mui/material";
 import type { Product } from "@/src/types/products";
 import { ProductCard } from "../card/ProductCard";
 
@@ -10,16 +9,10 @@ export const ProductList: React.FC<ProductListProps> = ({ products }) => {
   if (products.length === 0)
     return <div className="text-xl text-center pt-8">No products found</div>;
   return (
-    <Grid
-      component="ul"
-      container
-      spacing={4}
-      columns={8}
-      sx={{ listStyle: "none", padding: "4rem 1.5rem" }}
-    >
+    <div className="pt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-3 xl:grid-cols-4">
       {products?.map((product) => {
         return <ProductCard key={product.id} product={product} />;
       })}
-    </Grid>
+    </div>
   );
 };

@@ -7,7 +7,7 @@ export const ViewWrapper: React.FC<{
   childrenClassName?: string;
 }> = ({ children, childrenClassName }) => {
   return (
-    <div style={{ minHeight: "100vh" }}>
+    <div style={{ minHeight: "100svh" }}>
       <div className="max-w-screen-xl mx-auto py-16 px-6">
         <div
           className={cn(

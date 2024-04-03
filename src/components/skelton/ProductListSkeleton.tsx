@@ -1,15 +1,8 @@
-import { Grid } from "@mui/material";
 import { ProductCardSkelton } from "./ProductCardSkeleton";
 
 export const ProductListSkeleton = () => {
   return (
-    <Grid
-      component="ul"
-      container
-      spacing={4}
-      columns={8}
-      sx={{ listStyle: "none", padding: "4rem 1.5rem" }}
-    >
+    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 xl:grid-cols-4">
       <ProductCardSkelton />
       <ProductCardSkelton />
       <ProductCardSkelton />
@@ -18,6 +11,6 @@ export const ProductListSkeleton = () => {
       <ProductCardSkelton />
       <ProductCardSkelton />
       <ProductCardSkelton />
-    </Grid>
+    </div>
   );
 };
