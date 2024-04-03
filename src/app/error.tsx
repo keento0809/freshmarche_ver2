@@ -1,14 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { Button, Typography } from "@mui/material";
-import { FlexWrapper } from "../components/wrapper/FlexWrapper";
-
-const styles = {
-  position: "relative",
-  height: "100vh",
-  letterSpacing: "-1",
-};
+import { Button } from "../components/common/button/button";
 
 export default function Error({
   error,
@@ -21,11 +14,9 @@ export default function Error({
     console.error(error);
   }, [error]);
   return (
-    <FlexWrapper styles={styles}>
-      <Typography variant="h4" py={4}>
-        Something went wrong!
-      </Typography>
-      <Button onClick={() => reset()}>Try again</Button>
-    </FlexWrapper>
+    <div className="min-h-svh flex flex-col justify-center items-center pb-10">
+      <h4 className="text-lg lg:text-xl">Something went wrong!</h4>
+      <Button onClick={() => reset()}>Back</Button>
+    </div>
   );
 }

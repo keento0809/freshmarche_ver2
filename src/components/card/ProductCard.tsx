@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { Product } from "@/src/types/products";
 import { Button } from "../common/button/button";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Card,
   CardContent,
@@ -19,12 +19,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <Card className="max-h-[450px]">
       <CardHeader className="min-h-[134px]">
-        <CardTitle>{product.title}</CardTitle>
+        <CardTitle className="line-clamp-2 max-w-[226px] leading-6">
+          {product.title}
+        </CardTitle>
         <CardDescription>{product.brand}</CardDescription>
       </CardHeader>
-      <CardContent className="h-[250px]">
+      <CardContent>
         <Image
-          src={product.thumbnail}
+          src={"/assets/dummy-product-img.jpg"}
           sizes="100vw"
           width={10}
           height={200}
@@ -35,7 +37,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             maxHeight: "226px",
             minHeight: "130px",
           }}
-          alt="productImage"
+          alt="product"
         />
       </CardContent>
       <CardFooter>
