@@ -12,7 +12,7 @@ import {
 import { Input } from "@/src/components/common/input/input";
 import { useLoginForm } from "@/src/components/form/useLoginForm";
 import { Loader } from "@/src/components/loader/Loader";
-import { DialogClose } from "../common/dialog/dialog";
+import { cn } from "@/src/lib/utils";
 
 export const LoginForm = () => {
   const { form, onSubmit, isLoading, emailError, passwordError } =
@@ -31,9 +31,15 @@ export const LoginForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel className={cn(emailError && "text-red-500")}>
+                  Email
+                </FormLabel>
                 <FormControl>
-                  <Input placeholder="email" {...field} />
+                  <Input
+                    placeholder="email"
+                    {...field}
+                    className={cn(emailError && "border-red-500")}
+                  />
                 </FormControl>
                 <FormMessage>{emailError && emailError.message}</FormMessage>
               </FormItem>
@@ -44,9 +50,16 @@ export const LoginForm = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel className={cn(passwordError && "text-red-500")}>
+                  Password
+                </FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="password" {...field} />
+                  <Input
+                    type="password"
+                    placeholder="password"
+                    {...field}
+                    className={cn(passwordError && "border-red-500")}
+                  />
                 </FormControl>
                 <FormMessage>
                   {passwordError && passwordError.message}
@@ -54,11 +67,9 @@ export const LoginForm = () => {
               </FormItem>
             )}
           />
-          <DialogClose className="w-full">
-            <Button type="submit" className="w-full">
-              Submit
-            </Button>
-          </DialogClose>
+          <Button type="submit" className="w-full">
+            Submit
+          </Button>
         </form>
       </Form>
     </>
