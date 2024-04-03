@@ -12,6 +12,7 @@ import {
 import { Input } from "@/src/components/common/input/input";
 import { useLoginForm } from "@/src/components/form/useLoginForm";
 import { Loader } from "@/src/components/loader/Loader";
+import { cn } from "@/src/lib/utils";
 
 export const LoginForm = () => {
   const { form, onSubmit, isLoading, emailError, passwordError } =
@@ -23,16 +24,22 @@ export const LoginForm = () => {
       <Form {...form}>
         <form
           onSubmit={onSubmit}
-          className="w-full max-w-[450px] space-y-6 px-4 md:px-0"
+          className="w-full flex flex-col gap-8 max-w-[450px] px-4 md:px-0"
         >
           <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel className={cn(emailError && "text-red-500")}>
+                  Email
+                </FormLabel>
                 <FormControl>
-                  <Input placeholder="email" {...field} />
+                  <Input
+                    placeholder="email"
+                    {...field}
+                    className={cn(emailError && "border-red-500")}
+                  />
                 </FormControl>
                 <FormMessage>{emailError && emailError.message}</FormMessage>
               </FormItem>
@@ -43,9 +50,16 @@ export const LoginForm = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel className={cn(passwordError && "text-red-500")}>
+                  Password
+                </FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="password" {...field} />
+                  <Input
+                    type="password"
+                    placeholder="password"
+                    {...field}
+                    className={cn(passwordError && "border-red-500")}
+                  />
                 </FormControl>
                 <FormMessage>
                   {passwordError && passwordError.message}
