@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/src/components/common/button/button";
 import {
   Form,
@@ -11,11 +9,27 @@ import {
 } from "@/src/components/common/form/form";
 import { Input } from "@/src/components/common/input/input";
 import { useSignupForm } from "./useSignupForm";
+import { UseFormReturn } from "react-hook-form";
 
-export const SignupForm = () => {
-  const { form, onSubmit, usernameError, emailError, passwordError } =
-    useSignupForm();
+type SignupFormProps = {
+  form: UseFormReturn<
+    {
+      email: string;
+      username: string;
+      password: string;
+    },
+    any,
+    {
+      email: string;
+      username: string;
+      password: string;
+    }
+  >;
+  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+};
 
+export const SignupForm = ({ form, onSubmit }: SignupFormProps) => {
+  const { usernameError, emailError, passwordError } = useSignupForm();
   return (
     <Form {...form}>
       <form
@@ -42,7 +56,7 @@ export const SignupForm = () => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input placeholder="email" {...field} />
               </FormControl>

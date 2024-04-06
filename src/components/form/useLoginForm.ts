@@ -2,8 +2,10 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { type ZodError, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { getSession, signIn } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import { EMAIL_PATTERN } from "@/src/constants/regex/regex";
+import { supabase } from "@/src/supabase";
+import { redirect } from "next/navigation";
 
 const FormSchema = z.object({
   email: z
@@ -42,22 +44,29 @@ export const useLoginForm = () => {
       password: loginUserData.get("password"),
     };
     const parsedCredentials = FormSchema.safeParse(credentials);
+    console.log(parsedCredentials.success);
 
     if (!parsedCredentials.success) {
       setErrors(parsedCredentials.error);
       return;
     }
 
-    const { email, password } = credentials;
+    const { email, password } = parsedCredentials.data;
     setIsLoading(true);
 
     try {
-      await signIn("credentials", {
+      const { data: loginUser } = await supabase.auth.signInWithPassword({
         email,
         password,
-        // TODO: fix this url for production
-        callbackUrl: `http://localhost:3000/home`,
       });
+      console.log("loginUser: ", loginUser);
+      if (loginUser) redirect("/home");
+      // await signIn("credentials", {
+      //   email,
+      //   password,
+      //   // TODO: fix this url for production
+      //   callbackUrl: `http://localhost:3000/home`,
+      // });
       const session = await getSession();
     } catch (err) {
       if (err instanceof Error) console.log(err.message);
