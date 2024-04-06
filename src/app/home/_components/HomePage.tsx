@@ -14,7 +14,7 @@ export const HomePage = ({ query }: { query: string }) => {
     query,
   });
   return (
-    <>
+    <div className="lg:max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
       <MainTitle title={"Products"} />
       {(isFetching || isLoading) && (
         <div className="flex justify-center mt-4">
@@ -24,6 +24,6 @@ export const HomePage = ({ query }: { query: string }) => {
       {!isFetching && !isLoading && products && (
         <ProductList products={products} />
       )}
-    </>
+    </div>
   );
 };

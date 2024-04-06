@@ -18,8 +18,8 @@ type ProductCardProps = {
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <Card className="max-h-[450px]">
-      <CardHeader className="min-h-[134px]">
-        <CardTitle className="line-clamp-2 max-w-[226px] leading-6">
+      <CardHeader className="min-h-[122px]">
+        <CardTitle className="line-clamp-2 w-full leading-6">
           {product.title}
         </CardTitle>
         <CardDescription>{product.brand}</CardDescription>
