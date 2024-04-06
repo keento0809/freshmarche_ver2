@@ -28,7 +28,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "prisma/seed.ts"
+    "prisma/seed.ts",
+    "src/supabase.js"
   ],
   "exclude": ["node_modules"]
 }
