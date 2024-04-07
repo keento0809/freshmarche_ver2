@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { CartProduct, Product } from "@/src/types/products";
@@ -14,13 +14,14 @@ const FormSchema = z.object({
 
 export const useQuantitySelectForm = ({ product }: { product: Product }) => {
   const queryClient = useQueryClient();
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
   const router = useRouter();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      id: product.id.toString(),
+      // TODO: fix id later
+      id: "1",
       quantity: "1",
     },
   });
@@ -32,8 +33,9 @@ export const useQuantitySelectForm = ({ product }: { product: Product }) => {
   };
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    if (!session) throw new Error("You need to login in!");
-    const userId = session.user.id;
+    // if (!session) throw new Error("You need to login in!");
+    // TODO: fix this later
+    const userId = "1";
     if (!userId) throw new Error("No user found...");
     const cartProductData: CartProduct = {
       ...product,
