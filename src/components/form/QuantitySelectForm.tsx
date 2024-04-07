@@ -51,7 +51,8 @@ export function QuantitySelectForm({ product }: { product: Product }) {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-1/2">
+        {/* // TODO:This button should be disabled based on login status */}
+        <Button type="submit" className="w-1/2" disabled>
           Add Cart
         </Button>
       </form>
