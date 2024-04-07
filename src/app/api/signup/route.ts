@@ -8,7 +8,6 @@ import { SignupUser } from "@/src/types/auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  console.log("これは？");
   if (req.method === "POST") {
     try {
       const body = (await req.json()) as SignupUser;
@@ -19,7 +18,6 @@ export async function POST(req: NextRequest) {
         //   emailRedirectTo: "http://localhost:3000/home",
         // },
       });
-      console.log("signUpData: ", data);
       return NextResponse.json(data, { status: 200 });
     } catch (err) {
       if (err instanceof Error) console.log(err.message);

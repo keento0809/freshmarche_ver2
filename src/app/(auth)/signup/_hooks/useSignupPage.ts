@@ -77,21 +77,18 @@ export const useSignupPage = () => {
     const parsedCredentials = UserSchema.safeParse(credentials);
 
     if (!parsedCredentials.success) {
-      console.log(parsedCredentials.error);
       setErrors(parsedCredentials.error);
       return;
     }
 
     try {
-      console.log("kのasync");
-      const newUser = await fetch("/api/auth/signup/root", {
+      const newUser = await fetch("/api/signup", {
         method: "POST",
-        body: JSON.stringify(parsedCredentials),
+        body: JSON.stringify(parsedCredentials.data),
         headers: {
-          "Content-Type": "application.json",
+          "Content-Type": "application/json",
         },
       });
-      console.log("aiaiaiai");
       if (newUser) setIsSuccess(true);
     } catch (error) {
       if (error instanceof Error) console.log(error.message);
