@@ -1,5 +1,4 @@
 import "./globals.css";
-import { getServerAuthSession } from "./api/auth/[...nextauth]/route";
 import { cn } from "../lib/utils";
 import { fontSans } from "../lib/fonts";
 import { RootClient } from "@/src/app/_components/RootClient";
@@ -14,13 +13,11 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerAuthSession();
-
   return (
     <html lang="en">
       {/* // suppressHydrationWarning prevents extensions from causing a server/client mismatch */}
       <body suppressHydrationWarning={true} className={cn(fontSans.variable)}>
-        <RootClient session={session}>{children}</RootClient>
+        <RootClient>{children}</RootClient>
       </body>
     </html>
   );

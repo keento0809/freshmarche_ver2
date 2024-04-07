@@ -29,7 +29,7 @@ export const useSignupForm = () => {
   const emailError = errors?.issues.find((e) => e.path[0] === "email");
   const passwordError = errors?.issues.find((e) => e.path[0] === "password");
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const signUpUserData = new FormData(event.currentTarget);
@@ -48,7 +48,17 @@ export const useSignupForm = () => {
     setIsLoading(true);
 
     try {
+      const newUser = await fetch("/api/auth/signup/root", {
+        method: "POST",
+        body: JSON.stringify(parsedCredentials),
+        headers: {
+          "Content-Type": "application.json",
+        },
+      });
+      if (newUser) console.log("aaa");
     } catch (error) {
+      if (error instanceof Error) console.log(error.message);
+      throw new Error("Failed to signup...");
     } finally {
       setIsLoading(false);
     }
