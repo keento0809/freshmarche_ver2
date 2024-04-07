@@ -8,28 +8,14 @@ import {
   FormMessage,
 } from "@/src/components/common/form/form";
 import { Input } from "@/src/components/common/input/input";
-import { useSignupForm } from "./useSignupForm";
-import { UseFormReturn } from "react-hook-form";
+import { useSignupForm } from "../_hooks/useSignupForm";
+import { cn } from "@/src/lib/utils";
+import { useRouter } from "next/navigation";
 
-type SignupFormProps = {
-  form: UseFormReturn<
-    {
-      email: string;
-      username: string;
-      password: string;
-    },
-    any,
-    {
-      email: string;
-      username: string;
-      password: string;
-    }
-  >;
-  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-};
-
-export const SignupForm = ({ form, onSubmit }: SignupFormProps) => {
-  const { usernameError, emailError, passwordError } = useSignupForm();
+export const SignupForm = () => {
+  const { form, onSubmit, usernameError, emailError, passwordError } =
+    useSignupForm();
+  const router = useRouter();
   return (
     <Form {...form}>
       <form
@@ -43,7 +29,11 @@ export const SignupForm = ({ form, onSubmit }: SignupFormProps) => {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="username" {...field} />
+                <Input
+                  placeholder="username"
+                  {...field}
+                  className={cn(usernameError && "border-red-500")}
+                />
               </FormControl>
               <FormMessage>
                 {usernameError && usernameError.message}
@@ -58,7 +48,11 @@ export const SignupForm = ({ form, onSubmit }: SignupFormProps) => {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="email" {...field} />
+                <Input
+                  placeholder="email"
+                  {...field}
+                  className={cn(emailError && "border-red-500")}
+                />
               </FormControl>
               <FormMessage>{emailError && emailError.message}</FormMessage>
             </FormItem>
@@ -71,7 +65,12 @@ export const SignupForm = ({ form, onSubmit }: SignupFormProps) => {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="password" {...field} />
+                <Input
+                  type="password"
+                  placeholder="password"
+                  {...field}
+                  className={cn(passwordError && "border-red-500")}
+                />
               </FormControl>
               <FormMessage>
                 {passwordError && passwordError.message}
@@ -83,6 +82,16 @@ export const SignupForm = ({ form, onSubmit }: SignupFormProps) => {
           Submit
         </Button>
       </form>
+      <div className="py-2 text-xs w-full flex justify-center items-center">
+        Already TechMarche member?{" "}
+        <span
+          className="text-blue-400 inline-block px-1 underline"
+          onClick={() => router.push("/signup")}
+        >
+          login
+        </span>{" "}
+        here
+      </div>
     </Form>
   );
 };

@@ -2,20 +2,12 @@
 
 import { Button } from "@/src/components/common/button/button";
 import Link from "next/link";
-import { useCart } from "./useCart";
+import { useCart } from "../_hooks/useCart";
 import Image from "next/image";
 
 export const CartPage = () => {
   const { cartData } = useCart();
 
-  // if (!session)
-  //   return (
-  //     <div className="fixed top-32 left-0 right-0 z-20">
-  //       <p className="text-lg font-semibold text-center">
-  //         You need to log in first.
-  //       </p>
-  //     </div>
-  //   );
   return (
     <>
       <div className="flex flex-col gap-4 px-8">

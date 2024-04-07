@@ -2,8 +2,10 @@ import { useState } from "react";
 import { ZodError, z } from "zod";
 import { EMAIL_PATTERN } from "@/src/constants/regex/regex";
 import { useForm } from "react-hook-form";
+import { redirect } from "next/navigation";
+import { useToast } from "@/src/components/common/toast/use-toast";
 
-const FormSchema = z.object({
+const UserSchema = z.object({
   username: z
     .string({ required_error: "Username is required." })
     .min(2, { message: "Username must be more than 2 words" }),
@@ -13,7 +15,7 @@ const FormSchema = z.object({
     .regex(EMAIL_PATTERN, { message: "Please enter correct pattern" }),
   password: z
     .string({ required_error: "Password is required." })
-    .min(2, { message: "Password must be more than 6 characters" }),
+    .min(6, { message: "Password must be more than 6 characters" }),
 });
 
 export const useSignupForm = () => {
@@ -22,8 +24,8 @@ export const useSignupForm = () => {
     email: string;
     password: string;
   }> | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const form = useForm<z.infer<typeof FormSchema>>();
+  const form = useForm<z.infer<typeof UserSchema>>();
+  const { toast } = useToast();
 
   const usernameError = errors?.issues.find((e) => e.path[0] === "username");
   const emailError = errors?.issues.find((e) => e.path[0] === "email");
@@ -38,29 +40,31 @@ export const useSignupForm = () => {
       email: signUpUserData.get("email"),
       password: signUpUserData.get("password"),
     };
-    const parsedCredentials = FormSchema.safeParse(credentials);
+    const parsedCredentials = UserSchema.safeParse(credentials);
 
     if (!parsedCredentials.success) {
       setErrors(parsedCredentials.error);
       return;
     }
 
-    setIsLoading(true);
-
     try {
-      const newUser = await fetch("/api/auth/signup/root", {
+      const newUser = await fetch("/api/signup", {
         method: "POST",
-        body: JSON.stringify(parsedCredentials),
+        body: JSON.stringify(parsedCredentials.data),
         headers: {
-          "Content-Type": "application.json",
+          "Content-Type": "application/json",
         },
       });
-      if (newUser) console.log("aaa");
+      if (newUser) redirect("/home");
+      toast({
+        description: "Signup completed!",
+      });
     } catch (error) {
       if (error instanceof Error) console.log(error.message);
-      throw new Error("Failed to signup...");
-    } finally {
-      setIsLoading(false);
+      toast({
+        variant: "destructive",
+        description: "Failed to signup. Please try it again",
+      });
     }
   };
   return {

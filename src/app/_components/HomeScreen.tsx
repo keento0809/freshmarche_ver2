@@ -6,7 +6,7 @@ import { LoginDialog } from "./LoginDialog";
 
 export const HomeScreen = () => {
   return (
-    <main className="min-h-svh flex flex-col gap-6 justify-center items-center lg:pb-10">
+    <main className="min-h-[calc(100svh_-_80px)] flex flex-col gap-8 justify-center items-center pb-10 lg:pb-20">
       <MainTitle title="Tech Marche" />
       <div>
         <LoginDialog triggerText="Start with Login" />

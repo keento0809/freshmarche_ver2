@@ -10,13 +10,15 @@ import {
   FormMessage,
 } from "@/src/components/common/form/form";
 import { Input } from "@/src/components/common/input/input";
-import { useLoginForm } from "@/src/components/form/useLoginForm";
+import { useLoginForm } from "@/src/app/(auth)/login/_hooks/useLoginForm";
 import { Loader } from "@/src/components/loader/Loader";
 import { cn } from "@/src/lib/utils";
+import { useRouter } from "next/navigation";
 
 export const LoginForm = () => {
   const { form, onSubmit, isLoading, emailError, passwordError } =
     useLoginForm();
+  const router = useRouter();
 
   return (
     <>
@@ -71,6 +73,16 @@ export const LoginForm = () => {
             Submit
           </Button>
         </form>
+        {/* <div className="py-2 text-xs w-full flex justify-center items-center">
+          New to TechMarche?{" "}
+          <DialogClose
+            className="text-blue-400 inline-block px-1 underline"
+            onClick={() => router.push("/signup")}
+          >
+            Signup
+          </DialogClose>{" "}
+          here
+        </div> */}
       </Form>
     </>
   );

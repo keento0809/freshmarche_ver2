@@ -2,10 +2,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { type ZodError, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { getSession } from "next-auth/react";
 import { EMAIL_PATTERN } from "@/src/constants/regex/regex";
-import { supabase } from "@/src/supabase";
 import { redirect } from "next/navigation";
+import { useToast } from "@/src/components/common/toast/use-toast";
 
 const FormSchema = z.object({
   email: z
@@ -14,8 +13,7 @@ const FormSchema = z.object({
     .regex(EMAIL_PATTERN, { message: "Please enter correct pattern" }),
   password: z
     .string({ required_error: "Password is required." })
-    // TODO: Fix this validation (1) later
-    .min(2, { message: "Password must be more than 6 characters" }),
+    .min(6, { message: "Password must be more than 6 characters" }),
 });
 
 export const useLoginForm = () => {
@@ -32,6 +30,7 @@ export const useLoginForm = () => {
     password: string;
   }> | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
   const emailError = errors?.issues.find((e) => e.path[0] === "email");
   const passwordError = errors?.issues.find((e) => e.path[0] === "password");
@@ -44,33 +43,32 @@ export const useLoginForm = () => {
       password: loginUserData.get("password"),
     };
     const parsedCredentials = FormSchema.safeParse(credentials);
-    console.log(parsedCredentials.success);
 
     if (!parsedCredentials.success) {
       setErrors(parsedCredentials.error);
       return;
     }
 
-    const { email, password } = parsedCredentials.data;
     setIsLoading(true);
 
     try {
-      const { data: loginUser } = await supabase.auth.signInWithPassword({
-        email,
-        password,
+      const loginUser = await fetch("/api/login", {
+        method: "POST",
+        body: JSON.stringify(parsedCredentials.data),
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
-      console.log("loginUser: ", loginUser);
       if (loginUser) redirect("/home");
-      // await signIn("credentials", {
-      //   email,
-      //   password,
-      //   // TODO: fix this url for production
-      //   callbackUrl: `http://localhost:3000/home`,
-      // });
-      const session = await getSession();
+      toast({
+        description: "Login Completed!",
+      });
     } catch (err) {
       if (err instanceof Error) console.log(err.message);
-      throw new Error("Failed to login...");
+      toast({
+        variant: "destructive",
+        description: "Failed to signup. Please try it again",
+      });
     } finally {
       setIsLoading(false);
     }

@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/src/components/common/dialog/dialog";
-import { LoginForm } from "@/src/components/form/LoginForm";
+import { LoginForm } from "@/src/app/(auth)/login/_components/LoginForm";
 import { useRouter } from "next/navigation";
 
 type LoginDialogProps = {
