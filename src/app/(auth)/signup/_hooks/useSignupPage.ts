@@ -1,6 +1,7 @@
 "use client";
 
 import { EMAIL_PATTERN } from "@/src/constants/regex/regex";
+import { redirect } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { type ZodError, z } from "zod";
@@ -24,46 +25,11 @@ export const useSignupPage = () => {
     email: string;
     password: string;
   }> | null>(null);
-  const [isSuccess, setIsSuccess] = useState(false);
   const form = useForm<z.infer<typeof UserSchema>>();
 
   const usernameError = errors?.issues.find((e) => e.path[0] === "name");
   const emailError = errors?.issues.find((e) => e.path[0] === "email");
   const passwordError = errors?.issues.find((e) => e.path[0] === "password");
-
-  // const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   const signupUserData = new FormData(event.currentTarget);
-  //   const credentials = {
-  //     name: signupUserData.get("name"),
-  //     email: signupUserData.get("email"),
-  //     password: signupUserData.get("password"),
-  //   };
-  //   const parsedCredentials = UserSchema.safeParse(credentials);
-
-  //   if (!parsedCredentials.success) {
-  //     setErrors(parsedCredentials.error);
-  //     return;
-  //   }
-
-  //   const newUserData = { ...parsedCredentials.data, image_url: "" };
-
-  //   try {
-  //     const newUser = await fetch(`/api/auth/signup`, {
-  //       method: "POST",
-  //       body: JSON.stringify(newUserData),
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-  //     if (newUser) {
-  //       setIsSuccess(true);
-  //     }
-  //   } catch (err) {
-  //     if (err instanceof Error) console.log(err.message);
-  //     throw new Error("Failed to signup...");
-  //   }
-  // };
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -89,7 +55,7 @@ export const useSignupPage = () => {
           "Content-Type": "application/json",
         },
       });
-      if (newUser) setIsSuccess(true);
+      if (newUser) redirect("/home");
     } catch (error) {
       if (error instanceof Error) console.log(error.message);
       throw new Error("Failed to signup...");
@@ -102,7 +68,6 @@ export const useSignupPage = () => {
     usernameError,
     emailError,
     passwordError,
-    isSuccess,
     onSubmit,
   };
 };

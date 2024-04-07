@@ -2,9 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { type ZodError, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { getSession } from "next-auth/react";
 import { EMAIL_PATTERN } from "@/src/constants/regex/regex";
-import { supabase } from "@/src/supabase";
 import { redirect } from "next/navigation";
 
 const FormSchema = z.object({
@@ -51,23 +49,17 @@ export const useLoginForm = () => {
       return;
     }
 
-    const { email, password } = parsedCredentials.data;
     setIsLoading(true);
 
     try {
-      const { data: loginUser } = await supabase.auth.signInWithPassword({
-        email,
-        password,
+      const loginUser = await fetch("/api/login", {
+        method: "POST",
+        body: JSON.stringify(parsedCredentials.data),
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
-      console.log("loginUser: ", loginUser);
       if (loginUser) redirect("/home");
-      // await signIn("credentials", {
-      //   email,
-      //   password,
-      //   // TODO: fix this url for production
-      //   callbackUrl: `http://localhost:3000/home`,
-      // });
-      const session = await getSession();
     } catch (err) {
       if (err instanceof Error) console.log(err.message);
       throw new Error("Failed to login...");

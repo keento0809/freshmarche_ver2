@@ -5,6 +5,6 @@ type SignupUser = {
   image_url: string;
 };
 
-type loginUser = Omit<SignupUser, "name" | "image_url">;
+type LoginUser = Omit<SignupUser, "name" | "image_url">;
 
-export type { SignupUser, loginUser };
+export type { SignupUser, LoginUser };
