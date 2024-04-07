@@ -2,6 +2,8 @@ import { useState } from "react";
 import { ZodError, z } from "zod";
 import { EMAIL_PATTERN } from "@/src/constants/regex/regex";
 import { useForm } from "react-hook-form";
+import { redirect } from "next/navigation";
+import { useToast } from "@/src/components/common/toast/use-toast";
 
 const UserSchema = z.object({
   username: z
@@ -23,6 +25,7 @@ export const useSignupForm = () => {
     password: string;
   }> | null>(null);
   const form = useForm<z.infer<typeof UserSchema>>();
+  const { toast } = useToast();
 
   const usernameError = errors?.issues.find((e) => e.path[0] === "username");
   const emailError = errors?.issues.find((e) => e.path[0] === "email");
@@ -52,10 +55,16 @@ export const useSignupForm = () => {
           "Content-Type": "application/json",
         },
       });
-      if (newUser) console.log("aaa");
+      if (newUser) redirect("/home");
+      toast({
+        description: "Signup completed!",
+      });
     } catch (error) {
       if (error instanceof Error) console.log(error.message);
-      throw new Error("Failed to signup...");
+      toast({
+        variant: "destructive",
+        description: "Failed to signup. Please try it again",
+      });
     }
   };
   return {

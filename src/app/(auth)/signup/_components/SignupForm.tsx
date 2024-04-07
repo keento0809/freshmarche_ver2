@@ -10,10 +10,12 @@ import {
 import { Input } from "@/src/components/common/input/input";
 import { useSignupForm } from "../_hooks/useSignupForm";
 import { cn } from "@/src/lib/utils";
+import { useRouter } from "next/navigation";
 
 export const SignupForm = () => {
   const { form, onSubmit, usernameError, emailError, passwordError } =
     useSignupForm();
+  const router = useRouter();
   return (
     <Form {...form}>
       <form
@@ -80,6 +82,16 @@ export const SignupForm = () => {
           Submit
         </Button>
       </form>
+      <div className="py-2 text-xs w-full flex justify-center items-center">
+        Already TechMarche member?{" "}
+        <span
+          className="text-blue-400 inline-block px-1 underline"
+          onClick={() => router.push("/signup")}
+        >
+          login
+        </span>{" "}
+        here
+      </div>
     </Form>
   );
 };

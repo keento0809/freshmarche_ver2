@@ -1,3 +1,4 @@
+import { Toaster } from "@/src/components/common/toast/toaster";
 import { Navbar } from "@/src/components/layout/Navbar";
 import { FC } from "react";
 
@@ -10,6 +11,7 @@ export const RootHandle: FC<RootHandleProps> = ({ children }) => {
     <>
       <Navbar />
       {children}
+      <Toaster />
       {/* TODO:Add Nav here */}
     </>
   );
