@@ -22,7 +22,7 @@ export const ProductDetailDescription = ({
   return (
     <Card
       className={cn(
-        "bg-transparent w-full border-none outline-none flex flex-col gap-8 shadow-none",
+        "bg-transparent w-full border-none outline-none flex flex-col lg:gap-8 gap-4 shadow-none",
         className
       )}
     >

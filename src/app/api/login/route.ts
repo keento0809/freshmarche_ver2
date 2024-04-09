@@ -6,7 +6,6 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   if (req.method === "POST") {
     const supabase = createClient();
-    console.log("bbbbbbbbbbbbb");
     try {
       const body = (await req.json()) as LoginUser;
       const { data, error } = await supabase.auth.signInWithPassword({
