@@ -22,7 +22,7 @@ type ProductCardProps = {
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { isImageLoading, handleImageLoading } = useProductCard();
   return (
-    <Card className="max-h-[450px]">
+    <Card className="max-h-[450px]" data-testid="productCard">
       <CardHeader className="min-h-[122px]">
         <CardTitle className="line-clamp-2 w-full leading-6">
           {product.title}
@@ -48,7 +48,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             minHeight: "130px",
           }}
           alt="product"
-          onLoadingComplete={() => handleImageLoading()}
+          onLoad={() => handleImageLoading()}
         />
       </CardContent>
       <CardFooter>
