@@ -1,4 +1,4 @@
-import { LoginDialog } from "@/src/app/_components/LoginDialog";
+import { LoginDialog } from "@/src/app/components/LoginDialog";
 import Link from "next/link";
 
 export const Navbar = () => {

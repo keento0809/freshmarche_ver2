@@ -1,4 +1,4 @@
-import { SignupPage } from "./_components/SignupPage";
+import { SignupPage } from "./components/SignupPage";
 
 export default function Page({
   searchParams,

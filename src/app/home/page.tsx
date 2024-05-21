@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { HomePage } from "./_components/HomePage";
+import { HomePage } from "./components/HomePage";
 
 export const metadata: Metadata = {
   title: "Home | TechMarche",

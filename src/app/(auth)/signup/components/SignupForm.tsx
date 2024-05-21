@@ -8,7 +8,7 @@ import {
   FormMessage,
 } from "@/src/components/common/form/form";
 import { Input } from "@/src/components/common/input/input";
-import { useSignupForm } from "../_hooks/useSignupForm";
+import { useSignupForm } from "../hooks/useSignupForm";
 import { cn } from "@/src/lib/utils";
 import { useRouter } from "next/navigation";
 
