@@ -7,7 +7,11 @@ type SearchInputProps = {
 
 export const SearchInput: FC<SearchInputProps> = ({ onChange }) => {
   return (
-    <div className="py-4 mx-auto max-w-[400px]" onChange={onChange}>
+    <div
+      className="py-4 mx-auto max-w-[400px]"
+      onChange={onChange}
+      placeholder="Search..."
+    >
       <Input />
     </div>
   );
