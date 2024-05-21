@@ -11,10 +11,14 @@ export const ProductList: React.FC<ProductListProps> = ({ products }) => {
   if (products.length === 0)
     return <div className="text-xl text-center pt-8">No products found</div>;
   return (
-    <div className="pt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-3 xl:grid-cols-4">
+    <ul className="pt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-3 xl:grid-cols-4">
       {products?.map((product) => {
-        return <ProductCard key={product.id} product={product} />;
+        return (
+          <li key={product.id}>
+            <ProductCard product={product} />
+          </li>
+        );
       })}
-    </div>
+    </ul>
   );
 };
