@@ -20,6 +20,12 @@ describe("SearchInput", () => {
     };
   };
 
+  it("should not have any initial values", () => {
+    const { input } = renderSearchInput();
+
+    expect(input).toBe("");
+  });
+
   it("should call onChange when users input text", async () => {
     const { mockText, onChange, user, input } = renderSearchInput();
 
