@@ -1,4 +1,4 @@
-import { CartPage } from "./_components/CartPage";
+import { CartPage } from "./components/CartPage";
 
 export const metadata = {
   title: "Cart | TechMarche",

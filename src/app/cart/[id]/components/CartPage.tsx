@@ -2,7 +2,7 @@
 
 import { Button } from "@/src/components/common/button/button";
 import Link from "next/link";
-import { useCart } from "../_hooks/useCart";
+import { useCart } from "../hooks/useCart";
 import Image from "next/image";
 
 export const CartPage = () => {

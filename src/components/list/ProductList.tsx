@@ -1,3 +1,5 @@
+"use client";
+
 import type { Product } from "@/src/types/products";
 import { ProductCard } from "../card/ProductCard";
 

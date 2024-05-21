@@ -1,4 +1,4 @@
-import { ProductPage } from "./_components/ProductPage";
+import { ProductPage } from "./components/ProductPage";
 
 export const metadata = {
   title: "Product | TechMarche",

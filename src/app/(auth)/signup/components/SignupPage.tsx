@@ -2,7 +2,7 @@
 
 import { FC } from "react";
 import MainTitle from "@/src/components/title/MainTitle";
-import { SignupForm } from "@/src/app/(auth)/signup/_components/SignupForm";
+import { SignupForm } from "@/src/app/(auth)/signup/components/SignupForm";
 
 type SignupPageProps = {
   searchParams: { message: string };

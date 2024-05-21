@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { ProductDetailDescription } from "@/src/components/description/ProductDetailDescription";
 import { Button } from "@/src/components/common/button/button";
 import Link from "next/link";
-import { useProductPage } from "../_hooks/useProductPage";
+import { useProductPage } from "../hooks/useProductPage";
 import { Loader } from "@/src/components/loader/Loader";
 
 export const ProductPage = ({ id }: { id: string }) => {

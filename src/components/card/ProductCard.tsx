@@ -1,3 +1,5 @@
+"use client";
+
 import { Product } from "@/src/types/products";
 import { Button } from "../common/button/button";
 import Link from "next/link";
@@ -10,12 +12,15 @@ import {
   CardHeader,
   CardTitle,
 } from "../common/card/card";
+import { Loader } from "lucide-react";
+import { useProductCard } from "./hooks/useProductCard";
 
 type ProductCardProps = {
   product: Product;
 };
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const { isImageLoading, handleImageLoading } = useProductCard();
   return (
     <Card className="max-h-[450px]">
       <CardHeader className="min-h-[122px]">
@@ -24,7 +29,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </CardTitle>
         <CardDescription>{product.brand}</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="relative">
+        {isImageLoading && (
+          <div className="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] flex justify-center items-center">
+            <Loader className="" />
+          </div>
+        )}
         <Image
           src={"/assets/dummy-product-img.jpg"}
           sizes="100vw"
@@ -38,6 +48,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             minHeight: "130px",
           }}
           alt="product"
+          onLoadingComplete={() => handleImageLoading()}
         />
       </CardContent>
       <CardFooter>

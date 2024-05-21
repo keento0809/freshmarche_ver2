@@ -1,7 +1,7 @@
 import "./globals.css";
 import { cn } from "../lib/utils";
 import { fontSans } from "../lib/fonts";
-import { RootClient } from "@/src/app/_components/RootClient";
+import { RootClient } from "@/src/app/components/RootClient";
 
 export const metadata = {
   title: "TechMarche",

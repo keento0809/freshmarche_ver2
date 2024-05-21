@@ -10,7 +10,7 @@ import {
   FormMessage,
 } from "@/src/components/common/form/form";
 import { Input } from "@/src/components/common/input/input";
-import { useLoginForm } from "@/src/app/(auth)/login/_hooks/useLoginForm";
+import { useLoginForm } from "@/src/app/(auth)/login/hooks/useLoginForm";
 import { Loader } from "@/src/components/loader/Loader";
 import { cn } from "@/src/lib/utils";
 import { useRouter } from "next/navigation";

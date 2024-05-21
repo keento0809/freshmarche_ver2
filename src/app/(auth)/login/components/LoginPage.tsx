@@ -2,7 +2,7 @@
 
 import MainTitle from "@/src/components/title/MainTitle";
 import { FC } from "react";
-import { LoginForm } from "@/src/app/(auth)/login/_components/LoginForm";
+import { LoginForm } from "@/src/app/(auth)/login/components/LoginForm";
 
 export const LoginPage: FC = () => {
   return (
