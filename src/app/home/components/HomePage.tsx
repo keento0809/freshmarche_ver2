@@ -23,7 +23,7 @@ export const HomePage = ({ query }: { query: string }) => {
   return (
     <div className="lg:max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
       <MainTitle title={"Products"} />
-      <SearchInput onChange={(e) => handleSetText(e.target.value)} />
+      <SearchInput onChange={handleSetText} />
       {!isProductsFetched && (
         <div className="flex justify-center mt-4">
           <ProductListSkeleton />

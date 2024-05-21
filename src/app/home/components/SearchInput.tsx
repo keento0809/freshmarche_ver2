@@ -2,17 +2,18 @@ import { Input } from "@/src/components/common/input/input";
 import { FC } from "react";
 
 type SearchInputProps = {
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (text: string) => void;
 };
 
 export const SearchInput: FC<SearchInputProps> = ({ onChange }) => {
   return (
     <div
       className="py-4 mx-auto max-w-[400px]"
-      onChange={onChange}
-      placeholder="Search..."
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+        onChange(e.target.value)
+      }
     >
-      <Input />
+      <Input placeholder="Search..." />
     </div>
   );
 };

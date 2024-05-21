@@ -20,7 +20,7 @@ describe("SearchInput", () => {
     };
   };
 
-  it("should not have any initial values", () => {
+  it("should render SearchInput component", () => {
     const { input } = renderSearchInput();
 
     expect(input).toBeInTheDocument();
@@ -31,6 +31,6 @@ describe("SearchInput", () => {
 
     await user.type(input, mockText);
 
-    expect(onChange).toBeCalled();
+    expect(onChange).toHaveBeenCalledWith(mockText);
   });
 });
