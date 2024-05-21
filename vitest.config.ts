@@ -3,10 +3,15 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
+  // resolve: {
+  //   alias: {
+  //     "@": path.resolve(__dirname, "./src"),
+  //   },
+  // },
   test: {
-    environment: "jsdom",
     globals: true,
-    setupFiles: "setup.ts",
+    environment: "jsdom",
+    setupFiles: "./setup.ts",
   },
   plugins: [tsconfigPaths(), react()],
 });

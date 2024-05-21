@@ -1,5 +1,4 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
 import { SearchInput } from "./SearchInput";
 import userEvent from "@testing-library/user-event";
 
